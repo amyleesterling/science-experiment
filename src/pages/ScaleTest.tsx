@@ -172,8 +172,9 @@ function EarthWrap({ run }: { run: boolean }) {
         </p>
         <p className="mt-3 text-white/70 leading-relaxed max-w-md">
           Laid end to end, the wiring in a single human brain would wrap around the Earth roughly{" "}
-          <span style={{ color: HUMAN }}>50 times</span> — and the famous “~100,000 miles” figure is only
-          the ~10% that's insulated.{" "}
+          <span style={{ color: HUMAN }}>50 times</span> — or reach{" "}
+          <span style={{ color: HUMAN }}>the Moon and back more than twice</span> (~239,000 miles each way).
+          The famous “~100,000 miles” figure is only the ~10% that's myelinated.{" "}
           <Link to="/citations" className="underline decoration-white/30 hover:decoration-white">How this is estimated →</Link>
         </p>
       </div>
