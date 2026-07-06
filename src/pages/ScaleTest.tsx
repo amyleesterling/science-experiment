@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
+import ReferenceTable from "../components/ReferenceTable";
 
 // ---------------------------------------------------------------------------
 // Test page for the "brain, by the numbers" comparison viz that will become
@@ -36,7 +37,7 @@ const ROWS: Row[] = [
   },
   {
     key: "wire",
-    label: "Wiring — total axon length",
+    label: "Wiring — all axon (not just myelinated)",
     unit: "km",
     mouse: { value: 4000, display: "a few thousand km", anchor: "≈ the width of the United States" },
     human: { value: 2000000, display: "~2 million km", anchor: "≈ 50 × around the Earth (estimated)" },
@@ -193,7 +194,7 @@ export default function ScaleTest() {
       <div className="mx-auto max-w-4xl px-6 py-16 sm:py-24">
         <p className="text-[11px] uppercase tracking-[0.4em] text-white/45 mb-4">By the numbers</p>
         <h1 className="font-display font-light leading-[1.05]" style={{ fontSize: "clamp(2.2rem,5vw,3.8rem)" }}>
-          One neuron, thousands of synapses
+          Brains by the numbers
         </h1>
         <p className="mt-5 text-lg text-white/70 max-w-2xl leading-relaxed">
           A single neuron makes thousands of connections. Scale that up and the numbers stop meaning anything —
@@ -210,32 +211,10 @@ export default function ScaleTest() {
         {/* Reference table */}
         <div className="mt-14">
           <p className="text-[11px] uppercase tracking-[0.28em] text-white/45 mb-4">Reference</p>
-          <div className="overflow-x-auto rounded-2xl glass">
-            <table className="w-full text-sm border-collapse min-w-[560px]">
-              <thead>
-                <tr className="text-white/50 text-[11px] uppercase tracking-[0.16em]">
-                  <th className="text-left font-medium p-4">Brain</th>
-                  <th className="text-right font-medium p-4">Neurons</th>
-                  <th className="text-right font-medium p-4">Synapses</th>
-                  <th className="text-right font-medium p-4">Total “wire” length</th>
-                </tr>
-              </thead>
-              <tbody className="font-light">
-                <tr className="border-t border-white/10">
-                  <td className="p-4" style={{ color: MOUSE }}>Mouse brain</td>
-                  <td className="p-4 text-right text-white/80">~70 million</td>
-                  <td className="p-4 text-right text-white/80">~200–300 billion</td>
-                  <td className="p-4 text-right text-white/80">a few thousand km</td>
-                </tr>
-                <tr className="border-t border-white/10">
-                  <td className="p-4" style={{ color: HUMAN }}>Human brain</td>
-                  <td className="p-4 text-right text-white/80">~86 billion</td>
-                  <td className="p-4 text-right text-white/80">~100 trillion</td>
-                  <td className="p-4 text-right text-white/80">~2 million km (est.)</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
+          <ReferenceTable />
+          <Link to="/citations" className="inline-block mt-5 text-sm text-white/45 hover:text-white/80 transition underline decoration-white/25">
+            Sources &amp; calculations →
+          </Link>
         </div>
       </div>
     </div>
