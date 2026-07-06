@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
 
 // ---------------------------------------------------------------------------
 // Test page for the "brain, by the numbers" comparison viz that will become
@@ -38,8 +39,8 @@ const ROWS: Row[] = [
     label: "Wiring — total axon length",
     unit: "km",
     mouse: { value: 4000, display: "a few thousand km", anchor: "≈ the width of the United States" },
-    human: { value: 160000, display: "160,000 km", anchor: "≈ 4 × around the Earth" },
-    ratio: "~50× more",
+    human: { value: 2000000, display: "~2 million km", anchor: "≈ 50 × around the Earth (estimated)" },
+    ratio: "~500× more",
   },
 ];
 
@@ -121,9 +122,9 @@ function Stat({ row, run }: { row: Row; run: boolean }) {
   );
 }
 
-// Flagship visual: 160,000 km of axon = ~4 loops around the Earth.
+// Flagship visual: ~2 million km of axon wrapping the Earth dozens of times.
 function EarthWrap({ run }: { run: boolean }) {
-  const loops = [0, 1, 2, 3];
+  const loops = [0, 1, 2, 3, 4, 5, 6, 7];
   return (
     <div className="rounded-2xl glass p-7 sm:p-8 flex flex-col sm:flex-row items-center gap-8">
       <svg viewBox="0 0 220 220" width="220" height="220" className="shrink-0">
@@ -158,20 +159,21 @@ function EarthWrap({ run }: { run: boolean }) {
             transform={`rotate(${i * 45 - 68} 110 110)`}
             style={{ filter: "drop-shadow(0 0 4px rgba(150,170,255,0.7))" }}
             initial={{ pathLength: 0, opacity: 0 }}
-            animate={run ? { pathLength: 1, opacity: 0.9 } : {}}
-            transition={{ duration: 1.6, delay: 0.3 + i * 0.35, ease: "easeInOut" }}
+            animate={run ? { pathLength: 1, opacity: 0.75 } : {}}
+            transition={{ duration: 1.4, delay: 0.3 + i * 0.16, ease: "easeInOut" }}
           />
         ))}
       </svg>
       <div>
         <p className="text-[11px] uppercase tracking-[0.28em] text-white/45 mb-2">Total wiring, human brain</p>
         <p className="font-display font-light" style={{ fontSize: "clamp(1.8rem,3vw,2.6rem)" }}>
-          160,000&nbsp;km of axon
+          ~2&nbsp;million&nbsp;km of axon
         </p>
         <p className="mt-3 text-white/70 leading-relaxed max-w-md">
-          Laid end to end, the wiring in a single human brain would circle the Earth roughly{" "}
-          <span style={{ color: HUMAN }}>four times</span>. A mouse's — a few thousand km — would reach about
-          once across the United States.
+          Laid end to end, the wiring in a single human brain would wrap around the Earth roughly{" "}
+          <span style={{ color: HUMAN }}>50 times</span> — and the famous “~100,000 miles” figure is only
+          the ~10% that's insulated.{" "}
+          <Link to="/citations" className="underline decoration-white/30 hover:decoration-white">How this is estimated →</Link>
         </p>
       </div>
     </div>
@@ -229,7 +231,7 @@ export default function ScaleTest() {
                   <td className="p-4" style={{ color: HUMAN }}>Human brain</td>
                   <td className="p-4 text-right text-white/80">~86 billion</td>
                   <td className="p-4 text-right text-white/80">~100 trillion</td>
-                  <td className="p-4 text-right text-white/80">~160,000 km / ~100,000 miles</td>
+                  <td className="p-4 text-right text-white/80">~2 million km (est.)</td>
                 </tr>
               </tbody>
             </table>

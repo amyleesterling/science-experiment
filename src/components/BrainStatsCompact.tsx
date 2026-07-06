@@ -8,7 +8,7 @@ const HUMAN = "#b78bff";
 const STATS: { label: string; mouse: string; human: string; ratio: string; anchor: string }[] = [
   { label: "Neurons", mouse: "70 million", human: "86 billion", ratio: "~1,200×", anchor: "as many as the stars in the Milky Way" },
   { label: "Synapses", mouse: "~250 billion", human: "100 trillion", ratio: "~400×", anchor: "3 million years to count, one per second" },
-  { label: "Wiring", mouse: "a few thousand km", human: "160,000 km", ratio: "~50×", anchor: "four laps around the Earth" },
+  { label: "Wiring", mouse: "a few thousand km", human: "~2 million km", ratio: "~500×", anchor: "50+ times around the Earth (estimated)" },
 ];
 
 export default function BrainStatsCompact() {

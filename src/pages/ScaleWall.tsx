@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import BrainStatsCompact from "../components/BrainStatsCompact";
 
 // Preview of how the simplified stats block sits inside the wall's card 5
@@ -36,6 +37,9 @@ export default function ScaleWall() {
           <div className="mt-8">
             <p className="uppercase tracking-[0.3em] text-white/40 text-xs mb-4">By the numbers</p>
             <BrainStatsCompact />
+            <Link to="/citations" className="inline-block mt-5 text-xs text-white/35 hover:text-white/70 transition underline decoration-white/20">
+              Sources &amp; calculations →
+            </Link>
           </div>
         </div>
       </div>

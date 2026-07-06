@@ -17,7 +17,8 @@ export default function NavBar() {
     pathname === "/wonder" ||
     pathname === "/attract" ||
     pathname === "/scale-test" ||
-    pathname === "/scale-wall"
+    pathname === "/scale-wall" ||
+    pathname === "/citations"
   ) return null;
 
   return (

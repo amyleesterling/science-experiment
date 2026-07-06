@@ -10,6 +10,7 @@ import Kindergarten from "./pages/Kindergarten";
 import Wonder from "./pages/Wonder";
 import ScaleTest from "./pages/ScaleTest";
 import ScaleWall from "./pages/ScaleWall";
+import Citations from "./pages/Citations";
 import NavBar from "./components/NavBar";
 
 // Vite's BASE_URL is "/" in dev and "/inner_cosmos/" in production. React
@@ -39,6 +40,8 @@ export default function App() {
         <Route path="/scale-test" element={<ScaleTest />} />
         {/* Simplified stats as they'd sit inside the wall's card 5. */}
         <Route path="/scale-wall" element={<ScaleWall />} />
+        {/* Sources, calculations & credits (esp. the wiring estimate). */}
+        <Route path="/citations" element={<Citations />} />
       </Routes>
     </BrowserRouter>
   );
