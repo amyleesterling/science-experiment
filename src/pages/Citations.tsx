@@ -7,6 +7,23 @@ import { Link } from "react-router-dom";
 const MOUSE = "#7ee0ff";
 const HUMAN = "#b78bff";
 
+// Every cell shown in the experience — all real MICrONS minnie65 (seg_m1300)
+// reconstructions. [nickname, type, seg ID].
+const CELLS: [string, string, string][] = [
+  ["Lightning Tree", "Layer 5 thick-tufted pyramidal", "864691135572530981"],
+  ["Crown", "Layer 2/3 pyramidal", "864691135855890478"],
+  ["Dust Star", "Layer 4 cell", "864691135279086497"],
+  ["Spire", "Pyramidal neuron", "864691135214123064"],
+  ["Coral Fan", "Parvalbumin basket cell", "864691136662432990"],
+  ["Candelabra", "Chandelier cell", "864691135572094189"],
+  ["Reaching Hand", "Martinotti cell", "864691135919630768"],
+  ["Spindle", "Bipolar interneuron", "864691135407923657"],
+  ["Forest Floor", "Protoplasmic astrocyte", "864691135113162137"],
+  ["Watcher", "Microglia", "864691136194411734"],
+  ["Aura", "Layer 5 thick-tufted pyramidal (synapse stage)", "864691135948123745"],
+  ["Tendril", "Long-range axon (synapse stage)", "864691136195546856"],
+];
+
 function Step({ n, title, source, children }: { n: string; title: string; source: React.ReactNode; children: React.ReactNode }) {
   return (
     <div className="flex gap-4">
@@ -115,6 +132,50 @@ export default function Citations() {
           <li><span style={{ color: HUMAN }}>Synapses — ~100 trillion (human), ~200–300 billion (mouse).</span> Standard cortical-density
             estimates; the mouse cubic-millimeter density is confirmed directly by MICrONS.</li>
         </ul>
+
+        {/* Cells shown */}
+        <h2 className="font-display font-light mt-14 mb-3" style={{ fontSize: "clamp(1.4rem,2.2vw,1.8rem)" }}>Cells shown</h2>
+        <p className="text-white/70 text-[15px] leading-relaxed mb-4">
+          Every neuron and glial cell on screen is a real reconstruction from the MICrONS minnie65 volume
+          (<code className="text-white/55">seg_m1300</code>), curated from{" "}
+          <a className="underline decoration-white/30 hover:decoration-white" href="https://www.microns-explorer.org/gallery-mm3" target="_blank" rel="noreferrer">microns-explorer.org/gallery-mm3</a>:
+        </p>
+        <div className="overflow-x-auto rounded-2xl glass">
+          <table className="w-full text-sm border-collapse min-w-[560px]">
+            <thead>
+              <tr className="text-white/50 text-[11px] uppercase tracking-[0.16em]">
+                <th className="text-left font-medium p-3.5">Cell</th>
+                <th className="text-left font-medium p-3.5">Type</th>
+                <th className="text-left font-medium p-3.5">MICrONS minnie65 ID</th>
+              </tr>
+            </thead>
+            <tbody className="font-light">
+              {CELLS.map(([name, type, id]) => (
+                <tr key={id} className="border-t border-white/10">
+                  <td className="p-3.5 text-white/85">{name}</td>
+                  <td className="p-3.5 text-white/65">{type}</td>
+                  <td className="p-3.5 text-white/55 font-mono text-[13px]">{id}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+
+        {/* Functional data */}
+        <h2 className="font-display font-light mt-14 mb-3" style={{ fontSize: "clamp(1.4rem,2.2vw,1.8rem)" }}>Functional (calcium) data</h2>
+        <p className="text-white/70 text-[15px] leading-relaxed">
+          The Activity finale shows <span style={{ color: HUMAN }}>108 real pyramidal-layer cells</span> glowing
+          in time with their own measured two-photon calcium activity, recorded while a mouse watched a
+          movie. The traces come from the MICrONS functional dataset — <strong>session 9, scan 4</strong>,
+          imaging planes 2 / 4 / 6 (≈ layers 2/3, 4, 5) — with each imaged soma re-resolved to its current
+          <code className="text-white/55"> seg_m1300</code> mesh, fluorescence converted to ΔF/F and looped
+          at 30 fps.
+        </p>
+        <p className="mt-2 text-[13px] text-white/45">
+          <span className="uppercase tracking-[0.15em] text-white/35">Source</span> · MICrONS two-photon
+          functional imaging, <a className="underline decoration-white/30 hover:decoration-white" href="https://dandiarchive.org/dandiset/000402" target="_blank" rel="noreferrer">DANDI:000402</a>{" "}
+          (coregistered to the minnie65 EM volume).
+        </p>
 
         {/* Credits */}
         <h2 className="font-display font-light mt-14 mb-4" style={{ fontSize: "clamp(1.4rem,2.2vw,1.8rem)" }}>Data, meshes &amp; tools</h2>
