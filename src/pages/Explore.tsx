@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Link, useParams, useNavigate } from "react-router-dom";
 import ZoomScene from "../components/ZoomScene";
 import CellSwarm from "../components/CellSwarm";
+import BrainStatsCompact from "../components/BrainStatsCompact";
 import {
   loadActivityManifest,
   loadActivityTraces,
@@ -97,7 +98,7 @@ const STAGES = [
 // activity swarm) get longer holds; the tighter transitional stages are
 // shorter. Index matches STAGES. Stage 7 (action potential) re-fires on an
 // interval during its dwell; stage 8 (activity swarm) loops on its own.
-const ATTRACT_DWELL_MS = [9000, 9000, 8500, 7500, 9000, 8500, 9000, 13000, 15000];
+const ATTRACT_DWELL_MS = [9000, 9000, 8500, 7500, 9000, 13000, 9000, 13000, 15000];
 
 // Order the /attract wall loop steps through, by STAGES index. Index 3
 // ("Primary visual cortex") is intentionally omitted — the wall goes straight
@@ -304,7 +305,15 @@ export default function Explore({ attract = false }: { attract?: boolean }) {
 
   const cur = STAGES[stage];
   // Wall display can't be dragged — drop the "drag to look around" prompts.
-  const subtitle = attract ? stripDragHints(cur.subtitle) : cur.subtitle;
+  // On the wall, the neuron stage (5) uses a short lead-in above the
+  // "Brains by the numbers" stats block; /explore keeps the full paragraph.
+  const NEURON_WALL_DESC =
+    "One cell, thousands of connections. Neurons are the primary cells of the brain. They come in thousands of varieties.";
+  const subtitle = attract
+    ? stage === 5
+      ? NEURON_WALL_DESC
+      : stripDragHints(cur.subtitle)
+    : cur.subtitle;
   const isLast = stage === last;
 
   // Attract-mode position within the (V1-skipping) sequence, used for the
@@ -771,6 +780,17 @@ export default function Explore({ attract = false }: { attract?: boolean }) {
                   >
                     {subtitle}
                   </p>
+                  {stage === 5 && (
+                    <div className="mt-7">
+                      <h3
+                        className="font-display font-light text-white/90 mb-3.5"
+                        style={{ fontSize: "clamp(1.2rem, 1.6vw, 1.8rem)", textShadow: "0 1px 12px rgba(4,6,12,0.95)" }}
+                      >
+                        Brains by the numbers
+                      </h3>
+                      <BrainStatsCompact />
+                    </div>
+                  )}
                   {stage === 4 && (
                     <div className="mt-7 flex flex-col gap-2 text-[12px] uppercase tracking-[0.16em] text-white/60">
                       {CLUSTER_LEGEND.map((entry) => (
