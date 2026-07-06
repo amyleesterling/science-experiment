@@ -99,6 +99,24 @@ const STAGES = [
 // interval during its dwell; stage 8 (activity swarm) loops on its own.
 const ATTRACT_DWELL_MS = [9000, 9000, 8500, 7500, 9000, 8500, 9000, 13000, 15000];
 
+// Order the /attract wall loop steps through, by STAGES index. Index 3
+// ("Primary visual cortex") is intentionally omitted — the wall goes straight
+// from inside the mouse brain to the cortical cell cluster. The interactive
+// /explore still visits every stage; only the wall skips it. Eyebrow numbering
+// ("Stage N of 8") is derived from position in this list, not the baked
+// STAGES copy.
+const ATTRACT_SEQUENCE = [0, 1, 2, 4, 5, 6, 7, 8];
+
+// The stage copy invites the viewer to "drag to look around / rotate", which
+// is only true on the interactive /explore. The /attract wall display is
+// non-interactive, so strip those prompts there. Handles both the ". Drag to
+// …" and ", drag to …" sentence forms, leaving a single clean period.
+const stripDragHints = (subtitle: string): string =>
+  subtitle
+    .replace(/,\s*drag to (?:look around|rotate)\./gi, ".")
+    .replace(/\s*Drag to (?:look around|rotate)\./g, "")
+    .trim();
+
 export default function Explore({ attract = false }: { attract?: boolean }) {
   // /explore/:stage (1-indexed) gives every stage its own shareable URL.
   // /explore alone defaults to stage 1. The local stage state and the URL
@@ -221,18 +239,20 @@ export default function Explore({ attract = false }: { attract?: boolean }) {
   useEffect(() => {
     if (!attract) return;
     const dwell = ATTRACT_DWELL_MS[stage] ?? 9000;
-    if (stage < last) {
+    const seqPos = ATTRACT_SEQUENCE.indexOf(stage);
+    const atEnd = seqPos >= ATTRACT_SEQUENCE.length - 1;
+    if (!atEnd) {
       const id = window.setTimeout(() => {
         setTextCollapsed(false);
-        setStage((s) => Math.min(last, s + 1));
+        setStage(ATTRACT_SEQUENCE[seqPos + 1]);
       }, dwell);
       return () => clearTimeout(id);
     }
-    // Final stage → begin the wrap. Fade in black, then reset to stage 0.
+    // Final step → begin the wrap. Fade in black, then reset to the first step.
     const fadeId = window.setTimeout(() => setWrapFade(true), dwell);
     const resetId = window.setTimeout(() => {
       setTextCollapsed(false);
-      setStage(0);
+      setStage(ATTRACT_SEQUENCE[0]);
     }, dwell + 800);
     return () => { clearTimeout(fadeId); clearTimeout(resetId); };
   }, [attract, stage, last]);
@@ -280,7 +300,28 @@ export default function Explore({ attract = false }: { attract?: boolean }) {
   }, [last]);
 
   const cur = STAGES[stage];
+  // Wall display can't be dragged — drop the "drag to look around" prompts.
+  const subtitle = attract ? stripDragHints(cur.subtitle) : cur.subtitle;
   const isLast = stage === last;
+
+  // Attract-mode position within the (V1-skipping) sequence, used for the
+  // "Stage N of 8" eyebrow and the manual Back/Next demo controls.
+  const attractSeqPos = Math.max(0, ATTRACT_SEQUENCE.indexOf(stage));
+  const attractEyebrow = `Stage ${attractSeqPos + 1} of ${ATTRACT_SEQUENCE.length}`;
+  // Manual step controls are shown in attract mode for demoing. Append
+  // ?exhibit=1 to the URL to hide them for the real installation.
+  const showDemoNav =
+    attract &&
+    typeof window !== "undefined" &&
+    !new URLSearchParams(window.location.search).has("exhibit");
+  const goToSeq = (delta: number) => {
+    const pos = ATTRACT_SEQUENCE.indexOf(stage);
+    const base = pos < 0 ? 0 : pos;
+    const next = (base + delta + ATTRACT_SEQUENCE.length) % ATTRACT_SEQUENCE.length;
+    setTextCollapsed(false);
+    setWrapFade(false);
+    setStage(ATTRACT_SEQUENCE[next]);
+  };
 
   return (
     <>
@@ -303,8 +344,17 @@ export default function Explore({ attract = false }: { attract?: boolean }) {
       />
 
       {/* 3D scene fills the viewport behind the UI. Stage 9 swaps the
-          synapse/AP scene for the calcium-activity swarm. */}
-      <div className="fixed inset-0 z-[1]">
+          synapse/AP scene for the calcium-activity swarm.
+          On the wall, the action-potential stage (7) is nudged to the right
+          so the synapse/axon sits clear of the left-hand copy panel instead
+          of crowding it in the centre. */}
+      <div
+        className="fixed inset-0 z-[1]"
+        style={{
+          transform: attract && stage === 7 ? "translateX(15%)" : "translateX(0)",
+          transition: "transform 0.8s cubic-bezier(0.16, 1, 0.3, 1)",
+        }}
+      >
         {isActivityStage ? (
           activityData ? (
             <CellSwarm
@@ -499,7 +549,7 @@ export default function Explore({ attract = false }: { attract?: boolean }) {
       </div>
       )}
 
-      <main className={`relative z-10 min-h-screen flex flex-col pointer-events-none ${presentMode ? "hidden" : ""}`}>
+      <main className={`relative z-10 min-h-screen flex flex-col pointer-events-none ${presentMode || attract ? "hidden" : ""}`}>
 
         {/* Stage label — centered low */}
         <div className={`flex-1 flex flex-col justify-end px-6 ${attract ? "pb-40" : "pb-32 sm:pb-40"}`}>
@@ -542,7 +592,7 @@ export default function Explore({ attract = false }: { attract?: boolean }) {
                     }}
                     className={`text-white/80 font-light leading-relaxed text-balance ${attract ? "mt-6" : "mt-5"}`}
                   >
-                    {cur.subtitle}
+                    {subtitle}
                   </p>
                 </motion.div>
               )}
@@ -675,6 +725,102 @@ export default function Explore({ attract = false }: { attract?: boolean }) {
           </div>
         </div>
       </main>
+
+      {/* ---- Attract-mode side panel -------------------------------------
+          On the wall the copy lives in a left-hand block so it never covers
+          the centred 3D subject (there's plenty of empty space on an
+          ultrawide). A soft left-edge scrim keeps it legible over whatever
+          drifts behind it. */}
+      {attract && (
+        <>
+          <div
+            className="pointer-events-none fixed inset-y-0 left-0 w-[46vw] z-[5]"
+            style={{
+              background:
+                "linear-gradient(to right, rgba(4,6,12,0.85) 0%, rgba(4,6,12,0.5) 32%, rgba(4,6,12,0) 70%)",
+            }}
+          />
+          <div className="pointer-events-none fixed inset-y-0 left-0 z-10 flex items-center">
+            <div className="pl-[4.5vw] pr-8 w-[min(40rem,42vw)]">
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={stage}
+                  initial={{ opacity: 0, x: -26, filter: "blur(6px)" }}
+                  animate={{ opacity: 1, x: 0, filter: "blur(0px)" }}
+                  exit={{ opacity: 0, x: -16, filter: "blur(6px)" }}
+                  transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+                >
+                  <p
+                    className="uppercase tracking-[0.4em] text-white/55 text-sm mb-5"
+                    style={{ textShadow: "0 1px 12px rgba(4,6,12,0.95)" }}
+                  >
+                    {attractEyebrow}
+                  </p>
+                  <h2
+                    className="font-display font-light leading-[1.04]"
+                    style={{
+                      fontSize: "clamp(2.5rem, 3.4vw, 4.5rem)",
+                      textShadow:
+                        "0 2px 24px rgba(4,6,12,0.95), 0 0 12px rgba(4,6,12,0.85)",
+                    }}
+                  >
+                    {cur.title}
+                  </h2>
+                  <p
+                    className="mt-6 text-white/80 font-light leading-relaxed"
+                    style={{
+                      fontSize: "clamp(1.1rem, 1.4vw, 1.6rem)",
+                      textShadow: "0 1px 16px rgba(4,6,12,0.95)",
+                    }}
+                  >
+                    {subtitle}
+                  </p>
+                  {stage === 4 && (
+                    <div className="mt-7 flex flex-col gap-2 text-[12px] uppercase tracking-[0.16em] text-white/60">
+                      {CLUSTER_LEGEND.map((entry) => (
+                        <LegendDot key={entry.label} color={entry.color} label={entry.label} />
+                      ))}
+                    </div>
+                  )}
+                  {(stage === 6 || stage === 7) && (
+                    <div className="mt-7 flex flex-col gap-2 text-[12px] uppercase tracking-[0.16em] text-white/60">
+                      <LegendDot color="#4a8bff" label="Pyramidal neuron" />
+                      <LegendDot color="#ffd24a" label="Axon" />
+                    </div>
+                  )}
+                </motion.div>
+              </AnimatePresence>
+            </div>
+          </div>
+
+          {/* Demo-only manual step controls. Hidden when the URL has
+              ?exhibit=1 so the real installation shows nothing but the loop. */}
+          {showDemoNav && (
+            <div className="fixed bottom-8 right-10 z-30 flex items-center gap-3 pointer-events-auto">
+              <button
+                onClick={() => goToSeq(-1)}
+                className="px-5 py-2.5 rounded-full glass hover:bg-white/[0.08] transition cursor-pointer flex items-center gap-2 text-sm font-medium"
+                aria-label="Previous stage"
+              >
+                <svg width="15" height="15" viewBox="0 0 16 16" fill="none">
+                  <path d="M13 8H3M7 4l-4 4 4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
+                <span>Back</span>
+              </button>
+              <button
+                onClick={() => goToSeq(1)}
+                className="px-5 py-2.5 rounded-full glass-strong hover:bg-white/[0.08] transition cursor-pointer flex items-center gap-2 text-sm font-medium"
+                aria-label="Next stage"
+              >
+                <span>Next</span>
+                <svg width="15" height="15" viewBox="0 0 16 16" fill="none">
+                  <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
+              </button>
+            </div>
+          )}
+        </>
+      )}
 
       {/* Attract-loop wrap: cinematic fade-to-black over the loop reset
           (activity finale → human brain). Fades in fast, holds through the

@@ -53,10 +53,11 @@ mkdirSync(FRAMES_DIR, { recursive: true });
 
 const browser = await chromium.launch({
   headless: true,
-  // Use system Chromium when present — Playwright's bundled Chromium isn't
-  // always reachable (Azure CDN blocked from some sandboxes). Set
-  // CHROMIUM_PATH to a Chrome-for-Testing binary if needed.
-  executablePath: process.env.CHROMIUM_PATH || "/usr/bin/chromium-browser",
+  // Prefer an explicit CHROMIUM_PATH if set; otherwise let Playwright launch
+  // its own bundled Chromium (installed via `npx playwright install chromium`).
+  // The old hardcoded "/usr/bin/chromium-browser" only existed on the Linux
+  // sandbox and breaks on Windows/macOS.
+  ...(process.env.CHROMIUM_PATH ? { executablePath: process.env.CHROMIUM_PATH } : {}),
   args: [
     "--no-sandbox",
     "--disable-dev-shm-usage",
