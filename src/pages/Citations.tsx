@@ -83,18 +83,12 @@ export default function Citations() {
             Adding it lands the total around <span style={{ color: HUMAN }}>2–2.4 million km</span>.
           </Step>
 
-          <div className="mt-3 rounded-xl p-5" style={{ background: "rgba(255,180,120,0.06)", border: "1px solid rgba(255,180,120,0.18)" }}>
-            <p className="text-[13px] uppercase tracking-[0.2em] text-amber-200/70 mb-2">Honesty flag — this is an estimate</p>
-            <p className="text-white/70 text-[15px] leading-relaxed">
-              The famous measured figure (~176,000 km) is only the <strong>myelinated ~10%</strong>. The
-              density method is how you capture the invisible other ~90% of local, unmyelinated axon — but
-              that density, while measured directly in cat and mouse and consistent with the human H01
-              tissue sample (Shapson-Coe et al., 2024; ~1 mm³, 130M synapses), has no published
-              whole-brain <em>human</em> cable measurement behind it. An independent estimate frames the
-              same split as ~850,000 km total (≈80% local, ≈20% myelinated), which anchors the low end.
-              Treat it as a sound order-of-magnitude estimate, not a measurement.
-            </p>
-          </div>
+          <p className="mt-2 text-white/55 text-[14px] leading-relaxed">
+            This is an estimate, not a direct measurement: only the myelinated ~10% (~176,000 km) has been
+            measured whole-brain (Marner et al., 2003). The density that captures the rest is measured
+            directly in cat and mouse and matches the human H01 sample (Shapson-Coe et al., 2024; ~1 mm³,
+            130M synapses); an independent estimate puts the total nearer ~850,000 km.
+          </p>
         </div>
 
         {/* Mouse wiring */}
