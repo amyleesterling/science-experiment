@@ -14,6 +14,29 @@ This is intentionally a **separate repo** from `inner_cosmos` so the interactive
 site can keep evolving without touching the installation. Port improvements over
 by hand when desired; there is no automatic mirror.
 
+## Pages & links
+
+All live under `https://amyleesterling.github.io/science-experiment/`.
+
+| Page | Link | What it is |
+| --- | --- | --- |
+| Landing | [`/`](https://amyleesterling.github.io/science-experiment/) | Entry / title screen |
+| Explore | [`/explore`](https://amyleesterling.github.io/science-experiment/explore) | Interactive guided zoom (drag-to-rotate, manual stepping) |
+| Attract | [`/attract`](https://amyleesterling.github.io/science-experiment/attract) | The wall — auto-looping attract mode, no chrome |
+| Wall launcher | [`/wall`](https://amyleesterling.github.io/science-experiment/wall) | Click-to-fullscreen wrapper around `/attract` |
+| Meet the cells | [`/meet`](https://amyleesterling.github.io/science-experiment/meet) | Featured MICrONS cell gallery |
+| Activity | [`/activity`](https://amyleesterling.github.io/science-experiment/activity) | Calcium-activity swarm finale |
+| Brain | [`/brain`](https://amyleesterling.github.io/science-experiment/brain) · [`/brain/2`](https://amyleesterling.github.io/science-experiment/brain/2) | Brain overview scenes |
+| Kindergarten | [`/kindergarten`](https://amyleesterling.github.io/science-experiment/kindergarten) | Kid-first walkthrough |
+| Wonder | [`/wonder`](https://amyleesterling.github.io/science-experiment/wonder) | Wonder-facts page |
+| Brains by the numbers | [`/scale-test`](https://amyleesterling.github.io/science-experiment/scale-test) | Neuron icon + mouse-vs-human stats (count-ups, Earth-wrap) |
+| Scale wall | [`/scale-wall`](https://amyleesterling.github.io/science-experiment/scale-wall) | Preview of the wall's stats card 5 |
+| Citations | [`/citations`](https://amyleesterling.github.io/science-experiment/citations) | Sources, calculations & the Fenway-baseball / wiring math |
+
+**Related:** [interactive site repo `inner_cosmos`](https://github.com/amyleesterling/inner_cosmos) · [its live site](https://amyleesterling.github.io/inner_cosmos/) · [this repo](https://github.com/amyleesterling/science-experiment).
+
+> Deep links (anything past `/`) return an HTTP 404 status on GitHub Pages but still serve the app shell — the SPA router takes over, so they load fine in a browser.
+
 ## The wall route
 
 Everything runs at **`/attract`**:

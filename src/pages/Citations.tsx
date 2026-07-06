@@ -135,6 +135,72 @@ export default function Citations() {
             estimates; the mouse cubic-millimeter density is confirmed directly by MICrONS.</li>
         </ul>
 
+        {/* Fenway baseball framing — the anchor used on the stats pages */}
+        <div className="mt-8 rounded-2xl glass p-7 sm:p-9">
+          <h2 className="font-display font-light mb-2" style={{ fontSize: "clamp(1.4rem,2.3vw,1.9rem)" }}>
+            Those neurons, as baseballs in Fenway Park
+          </h2>
+          <p className="text-white/60 mb-6 text-[15px] leading-relaxed">
+            The stats pages picture the neuron counts as baseballs poured into Fenway. Here's the arithmetic.
+          </p>
+
+          <Step n="1" title="One baseball ≈ 0.33 L of space" source={<>Official MLB ball spec (2.9 in dia.); random close packing of equal spheres ≈ 64% (Bernal, 1960).</>}>
+            A regulation baseball is <span style={{ color: HUMAN }}>2.9 in across ≈ 12.8 in³ (0.21 L) of solid rubber and yarn</span>.
+            Poured into a heap, identical spheres only pack to about <span style={{ color: HUMAN }}>64%</span> of the space
+            (the rest is gaps), so each ball effectively claims <span style={{ color: HUMAN }}>~0.33 L</span>.
+          </Step>
+          <Step n="2" title="The whole stadium ≈ 1 million m³" source={<>Estimate: enclosed footprint ~18,000 m² (field + stands) × ~55 m to the top of the light towers. An open-air bowl has no single "top", so this is a rough figure (~0.9–1.4 million m³).</>}>
+            We fill the <em>entire</em> stadium volume, not just the playing field. Fenway's enclosed footprint is roughly
+            <span style={{ color: HUMAN }}> 18,000 m²</span>; up to the <span style={{ color: HUMAN }}>~55 m</span> light towers that's about
+            <span style={{ color: HUMAN }}> 1 million m³</span> of space.
+          </Step>
+          <Step n="3" title="Mouse — 70 million balls → ~2% of the stadium" source={<>Arithmetic. No external source.</>}>
+            70,000,000 × 0.33 L ≈ <span style={{ color: MOUSE }}>22,900 m³</span> — only about <span style={{ color: MOUSE }}>2% of the stadium</span>
+            (a knee-to-waist-deep layer spread across the whole footprint). Not even one Fenway's worth.
+          </Step>
+          <Step n="4" title="Human — 86 billion balls → ~28 Fenways" source={<>Arithmetic. Sensitive to the stadium-volume estimate: ~25–31× across the 0.9–1.1 million m³ range.</>}>
+            86,000,000,000 × 0.33 L ≈ <span style={{ color: HUMAN }}>28.1 million m³</span>, so 86 billion baseballs would fill Fenway's
+            entire volume <span style={{ color: HUMAN }}>about 28 times over</span>.
+          </Step>
+
+          <div className="mt-3 rounded-xl p-5" style={{ background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.09)" }}>
+            <p className="text-white/60 text-[14px] leading-relaxed">
+              The two framings line up: there are <span style={{ color: HUMAN }}>~1,230×</span> as many human neurons as mouse
+              (86B ÷ 70M), and that is exactly the jump from <span style={{ color: MOUSE }}>~2% of one stadium</span> to
+              <span style={{ color: HUMAN }}> ~28 stadiums</span> (2.3% × 1,230 ≈ 28×). A common back-of-envelope slip is a
+              1,000× unit error (cm³→m³ is ÷1,000,000, not ÷1,000) — which would wrongly "bury" Fenway under the mouse's baseballs alone.
+            </p>
+          </div>
+        </div>
+
+        {/* Pictured comparisons — the "next to something you can see" anchors */}
+        <h2 className="font-display font-light mt-14 mb-3" style={{ fontSize: "clamp(1.4rem,2.2vw,1.8rem)" }}>The pictured comparisons</h2>
+        <p className="text-white/70 text-[15px] leading-relaxed mb-4">
+          The stats pages set each figure next to something you can picture. Here's the arithmetic behind each one.
+        </p>
+        <div className="rounded-2xl glass p-7 sm:p-9 space-y-6">
+          <div>
+            <h3 className="font-display text-lg font-light mb-1.5">Synapses, counted one per second</h3>
+            <p className="text-white/70 leading-relaxed text-[15px]">
+              A year is 60 × 60 × 24 × 365.25 ≈ <span style={{ color: HUMAN }}>31.6 million seconds</span>. Ticking off one
+              synapse every second: mouse <span style={{ color: MOUSE }}>~250 billion ÷ 31.6M ≈ 7,900 years</span>; human{" "}
+              <span style={{ color: HUMAN }}>~100 trillion ÷ 31.6M ≈ 3.2 million years</span>.
+            </p>
+          </div>
+          <div>
+            <h3 className="font-display text-lg font-light mb-1.5">Wiring, laid end to end</h3>
+            <ul className="text-white/70 leading-relaxed text-[15px] space-y-1.5 list-disc pl-5">
+              <li><span style={{ color: MOUSE }}>Mouse ~2,000 km</span> ≈ Boston to Miami (~1,250 mi in a straight line ≈ 2,020 km).</li>
+              <li><span style={{ color: HUMAN }}>Human ~2,000,000 km ÷ 40,075 km</span> (Earth's equatorial circumference) ≈ <span style={{ color: HUMAN }}>50× around the Earth</span>.</li>
+              <li><span style={{ color: HUMAN }}>Human ~2,000,000 km ÷ 768,800 km</span> (a round trip to the Moon; 384,400 km each way) ≈ <span style={{ color: HUMAN }}>2.6× — the Moon and back more than twice</span>.</li>
+              <li>The gap between them: <span style={{ color: HUMAN }}>2,000,000 ÷ 2,000 = ~1,000×</span> more wiring in a human brain than a mouse.</li>
+            </ul>
+            <p className="mt-2 text-[13px] text-white/45">
+              <span className="uppercase tracking-[0.15em] text-white/35">Source</span> · Earth circumference and mean Earth–Moon distance are standard constants; the ~2 million km wiring total is derived above.
+            </p>
+          </div>
+        </div>
+
         {/* Cells shown */}
         <h2 className="font-display font-light mt-14 mb-3" style={{ fontSize: "clamp(1.4rem,2.2vw,1.8rem)" }}>Cells shown</h2>
         <p className="text-white/70 text-[15px] leading-relaxed mb-4">

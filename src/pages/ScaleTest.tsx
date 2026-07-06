@@ -25,8 +25,8 @@ const ROWS: Row[] = [
   {
     key: "neurons",
     label: "Neurons",
-    mouse: { value: 70e6, display: "70 million", anchor: "≈ Fenway filled 8 ft deep (as baseballs)" },
-    human: { value: 86e9, display: "86 billion", anchor: "≈ Fenway filled 50× to the brim (as baseballs)" },
+    mouse: { value: 70e6, display: "70 million", anchor: "≈ ~2% of Fenway's volume (as baseballs)" },
+    human: { value: 86e9, display: "86 billion", anchor: "≈ fills Fenway ~28× over (as baseballs)" },
     ratio: "~1,200× more",
   },
   {
@@ -42,7 +42,7 @@ const ROWS: Row[] = [
     unit: "km",
     mouse: { value: 2000, display: "~2,000 km", anchor: "≈ Boston to Miami (~1,250 mi)" },
     human: { value: 2000000, display: "~2 million km", anchor: "≈ 50 × around the Earth (estimated)" },
-    ratio: "~500× more",
+    ratio: "~1,000× more",
   },
 ];
 

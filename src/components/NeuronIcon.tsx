@@ -17,36 +17,52 @@ const STATS: { label: string; human: string; mouse: string }[] = [
   { label: "Wiring", human: "~2 million km", mouse: "~2,000 km" },
 ];
 
-// Every stroke of the glyph, longest-first so the draw-in reads as a trunk
-// sprouting a tuft, then basal dendrites, then the axon dropping away.
-const APICAL = [
-  "M100 168 L100 60", // trunk
-  "M100 60 L82 30",
-  "M100 60 L118 30",
-  "M100 60 L72 42",
-  "M100 60 L128 42",
-  "M100 88 L74 58",
-  "M100 92 L126 62",
-  "M100 116 L70 96",
-  "M100 122 L130 102",
+// A Layer-5 pyramidal neuron, all curved strokes so the branches read as
+// organic dendrites (and so no perfectly-straight path gets culled by the
+// drop-shadow filter, which is what dropped the apical trunk before).
+//   TRUNK  — the apical dendrite, soma → cortical surface
+//   TUFT   — the apical tuft fanning out at the top
+//   OBLIQUE— oblique dendrites branching off the trunk
+//   BASAL  — basal dendrites spreading from the soma base
+//   AXON   — thinner, drops below the basals and branches into a terminal arbor
+const TRUNK = "M100 165 C 97 138, 103 96, 100 54";
+const TUFT = [
+  "M100 56 C 90 45, 84 39, 78 27",
+  "M100 56 C 110 45, 116 39, 122 27",
+  "M100 58 C 96 44, 92 35, 90 24",
+  "M100 58 C 104 44, 108 35, 110 24",
+];
+const OBLIQUE = [
+  "M100 94 C 90 90, 82 86, 73 80",
+  "M100 94 C 110 90, 118 86, 127 80",
+  "M100 126 C 91 124, 84 120, 76 114",
+  "M100 126 C 109 124, 116 120, 124 114",
 ];
 const BASAL = [
-  "M88 196 L52 218",
-  "M112 196 L148 218",
-  "M100 200 L82 252",
-  "M100 200 L118 252",
-  "M84 192 L40 196",
-  "M116 192 L160 196",
+  "M94 190 C 82 198, 74 206, 66 214",
+  "M106 190 C 118 198, 126 206, 134 214",
+  "M97 193 C 92 204, 89 214, 86 224",
+  "M103 193 C 108 204, 111 214, 114 224",
+  "M90 187 C 77 191, 67 193, 57 197",
+  "M110 187 C 123 191, 133 193, 143 197",
 ];
+const AXON = "M100 193 C 101 214, 99 232, 100 250";
+const AXON_TERM = [
+  "M100 248 C 96 256, 90 260, 84 268",
+  "M100 248 C 104 256, 110 260, 116 268",
+  "M100 250 C 100 258, 99 263, 98 270",
+];
+const BOUTONS: [number, number][] = [[84, 268], [116, 268], [98, 270]];
+const EASE: [number, number, number, number] = [0.22, 1, 0.36, 1]; // expo-out — branches grow, then settle
 
 function Glyph({ run }: { run: boolean }) {
-  const draw = (d: string, i: number, base: number) => (
+  const stroke = (d: string, delay: number, opacity = 0.95, dur = 1) => (
     <motion.path
       key={d}
       d={d}
       initial={{ pathLength: 0, opacity: 0 }}
-      animate={run ? { pathLength: 1, opacity: 0.95 } : {}}
-      transition={{ duration: 1.1, delay: base + i * 0.08, ease: "easeInOut" }}
+      animate={run ? { pathLength: 1, opacity } : {}}
+      transition={{ duration: dur, delay, ease: EASE }}
     />
   );
 
@@ -64,6 +80,7 @@ function Glyph({ run }: { run: boolean }) {
         </radialGradient>
       </defs>
 
+      {/* Apical dendrite: trunk first, then the tuft and obliques branch off it. */}
       <g
         fill="none"
         stroke="url(#neuronIconStroke)"
@@ -72,43 +89,57 @@ function Glyph({ run }: { run: boolean }) {
         strokeLinejoin="round"
         style={{ filter: "drop-shadow(0 0 5px rgba(150,170,255,0.55))" }}
       >
-        {APICAL.map((d, i) => draw(d, i, 0.2))}
+        {stroke(TRUNK, 0.15, 0.98, 1.2)}
+        {OBLIQUE.map((d, i) => stroke(d, 0.7 + i * 0.12, 0.9))}
+        {TUFT.map((d, i) => stroke(d, 1.0 + i * 0.1, 0.95))}
       </g>
+
+      {/* Basal dendrites. */}
       <g
         fill="none"
         stroke="url(#neuronIconStroke)"
-        strokeWidth="2.2"
+        strokeWidth="2.3"
         strokeLinecap="round"
         strokeLinejoin="round"
-        opacity="0.9"
         style={{ filter: "drop-shadow(0 0 5px rgba(150,170,255,0.55))" }}
       >
-        {BASAL.map((d, i) => draw(d, i, 0.9))}
+        {BASAL.map((d, i) => stroke(d, 0.5 + i * 0.1, 0.9))}
       </g>
 
-      {/* Axon dropping away below the soma. */}
-      <motion.path
-        d="M100 196 L100 268"
+      {/* Axon — thinner, drops past the basals and breaks into a terminal arbor. */}
+      <g
         fill="none"
         stroke="url(#neuronIconStroke)"
-        strokeWidth="2"
+        strokeWidth="1.9"
         strokeLinecap="round"
-        initial={{ pathLength: 0, opacity: 0 }}
-        animate={run ? { pathLength: 1, opacity: 0.7 } : {}}
-        transition={{ duration: 1, delay: 1.5, ease: "easeInOut" }}
-      />
+        strokeLinejoin="round"
+        style={{ filter: "drop-shadow(0 0 4px rgba(126,224,255,0.5))" }}
+      >
+        {stroke(AXON, 1.2, 0.85, 1)}
+        {AXON_TERM.map((d, i) => stroke(d, 1.75 + i * 0.1, 0.78, 0.7))}
+      </g>
+      {BOUTONS.map(([cx, cy], i) => (
+        <motion.circle
+          key={i}
+          cx={cx}
+          cy={cy}
+          r="2"
+          fill="url(#neuronIconStroke)"
+          initial={{ scale: 0, opacity: 0 }}
+          animate={run ? { scale: 1, opacity: 0.9 } : {}}
+          transition={{ duration: 0.4, delay: 2.05 + i * 0.08, ease: "easeOut" }}
+          style={{ transformOrigin: `${cx}px ${cy}px` }}
+        />
+      ))}
 
-      {/* Soma — fades in and gently breathes. */}
-      <motion.ellipse
-        cx="100"
-        cy="184"
-        rx="14"
-        ry="13"
+      {/* Soma — pyramidal teardrop, apex up, gentle grow-in. */}
+      <motion.path
+        d="M100 160 C 111 173, 114 187, 100 196 C 86 187, 89 173, 100 160 Z"
         fill="url(#neuronIconSoma)"
         initial={{ scale: 0, opacity: 0 }}
         animate={run ? { scale: [0, 1.12, 1], opacity: 1 } : {}}
-        transition={{ duration: 0.9, delay: 0.15, ease: "easeOut" }}
-        style={{ transformOrigin: "100px 184px", filter: "drop-shadow(0 0 8px rgba(183,139,255,0.8))" }}
+        transition={{ duration: 0.9, delay: 0.1, ease: "easeOut" }}
+        style={{ transformOrigin: "100px 180px", filter: "drop-shadow(0 0 8px rgba(183,139,255,0.85))" }}
       />
     </svg>
   );

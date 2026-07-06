@@ -9,8 +9,8 @@ const STATS: { label: string; lead?: string; mouse: Cell; human: Cell }[] = [
   {
     label: "Neurons",
     lead: "As baseballs, they'd fill Fenway Park…",
-    mouse: { v: "70 million", a: "8 feet deep" },
-    human: { v: "86 billion", a: "50× to the brim" },
+    mouse: { v: "70 million", a: "~2% of the stadium" },
+    human: { v: "86 billion", a: "~28× the whole stadium" },
   },
   {
     label: "Synapses",
