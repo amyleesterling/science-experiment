@@ -63,6 +63,15 @@ const browser = await chromium.launch({
     "--disable-dev-shm-usage",
     "--disable-gpu-vsync",
     "--ignore-certificate-errors",
+    // Force hardware WebGL in headless. Without these, headless Chromium
+    // blocklists the GPU and falls back to SwiftShader (software) — which
+    // renders this swarm at ~18s/frame. With them it uses the real GPU
+    // (verified: ANGLE/D3D11 on the NVIDIA card) and drops to a fraction
+    // of a second per frame.
+    "--ignore-gpu-blocklist",
+    "--enable-gpu-rasterization",
+    "--enable-zero-copy",
+    "--use-angle=d3d11",
   ],
 });
 const ctx = await browser.newContext({

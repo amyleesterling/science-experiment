@@ -168,6 +168,9 @@ export default function Explore({ attract = false }: { attract?: boolean }) {
   // Attract-loop only: drives the cinematic fade-to-black that covers the
   // loop reset (activity finale → back to the human brain).
   const [wrapFade, setWrapFade] = useState(false);
+  // Attract-loop only: pause auto-progression. The 3D keeps animating; only
+  // the stage-to-stage advance is frozen. Toggled by the on-screen button.
+  const [paused, setPaused] = useState(false);
   const last = STAGES.length - 1;
   const isActivityStage = stage === last;
 
@@ -237,7 +240,7 @@ export default function Explore({ attract = false }: { attract?: boolean }) {
   // remounts it fresh at the human-brain waypoint (no backward fly-through),
   // and the black cover hides the brief mesh re-parse.
   useEffect(() => {
-    if (!attract) return;
+    if (!attract || paused) return;
     const dwell = ATTRACT_DWELL_MS[stage] ?? 9000;
     const seqPos = ATTRACT_SEQUENCE.indexOf(stage);
     const atEnd = seqPos >= ATTRACT_SEQUENCE.length - 1;
@@ -255,7 +258,7 @@ export default function Explore({ attract = false }: { attract?: boolean }) {
       setStage(ATTRACT_SEQUENCE[0]);
     }, dwell + 800);
     return () => { clearTimeout(fadeId); clearTimeout(resetId); };
-  }, [attract, stage, last]);
+  }, [attract, stage, last, paused]);
 
   // Lift the black cover once we've reset to stage 0 and the fresh scene has
   // had a moment to (re)load the human-brain mesh from cache.
@@ -797,6 +800,25 @@ export default function Explore({ attract = false }: { attract?: boolean }) {
               ?exhibit=1 so the real installation shows nothing but the loop. */}
           {showDemoNav && (
             <div className="fixed bottom-8 right-10 z-30 flex items-center gap-3 pointer-events-auto">
+              <button
+                onClick={() => setPaused((p) => !p)}
+                className="p-2.5 rounded-full glass hover:bg-white/[0.08] transition cursor-pointer flex items-center justify-center"
+                aria-label={paused ? "Play" : "Pause"}
+                title={paused ? "Play (resume auto-advance)" : "Pause auto-advance"}
+              >
+                {paused ? (
+                  // Play icon — shown while paused; press to resume.
+                  <svg width="15" height="15" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">
+                    <path d="M5 3.5v9a.5.5 0 0 0 .77.42l7-4.5a.5.5 0 0 0 0-.84l-7-4.5A.5.5 0 0 0 5 3.5z" />
+                  </svg>
+                ) : (
+                  // Pause icon — shown while playing; press to freeze progression.
+                  <svg width="15" height="15" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">
+                    <rect x="4" y="3" width="3" height="10" rx="1" />
+                    <rect x="9" y="3" width="3" height="10" rx="1" />
+                  </svg>
+                )}
+              </button>
               <button
                 onClick={() => goToSeq(-1)}
                 className="px-5 py-2.5 rounded-full glass hover:bg-white/[0.08] transition cursor-pointer flex items-center gap-2 text-sm font-medium"

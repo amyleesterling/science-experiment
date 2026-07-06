@@ -1,7 +1,11 @@
 import { Link, useLocation } from "react-router-dom";
 
 export default function NavBar() {
-  const { pathname } = useLocation();
+  const { pathname, search } = useLocation();
+
+  // Capture mode (?capture=1) drives the headless video render — the NavBar
+  // must not appear in the exported frames. Hide it regardless of route.
+  if (new URLSearchParams(search).has("capture")) return null;
 
   // /kindergarten (+ /kindergarten/:stage shareable links), /brain
   // (+ subroutes), and /wonder are standalone immersive experiences —
