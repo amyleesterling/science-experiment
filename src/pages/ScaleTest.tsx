@@ -24,8 +24,8 @@ const ROWS: Row[] = [
   {
     key: "neurons",
     label: "Neurons",
-    mouse: { value: 70e6, display: "70 million", anchor: "≈ 1,900 sold-out Fenway Parks" },
-    human: { value: 86e9, display: "86 billion", anchor: "≈ 10× everyone alive on Earth" },
+    mouse: { value: 70e6, display: "70 million", anchor: "≈ as baseballs, under one Fenway" },
+    human: { value: 86e9, display: "86 billion", anchor: "≈ as baseballs, ~50 Fenway Parks" },
     ratio: "~1,200× more",
   },
   {
