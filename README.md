@@ -34,7 +34,7 @@ Point a fullscreen/kiosk browser at the deployed `/attract` route:
 
 ```sh
 chrome --kiosk --window-size=3628,1600 \
-  "https://amyleesterling.github.io/inner-cosmos-wall/attract"
+  "https://amyleesterling.github.io/science-experiment/attract"
 ```
 
 ## Local development
@@ -48,8 +48,8 @@ npm run build      # production build → dist/
 ## Deploy
 
 Pushing to `main` triggers `.github/workflows/deploy.yml` (Vite build →
-GitHub Pages). Live at `amyleesterling.github.io/inner-cosmos-wall/`.
-The `vite.config.ts` `base` is `/inner-cosmos-wall/` for the project-Pages path,
+GitHub Pages). Live at `amyleesterling.github.io/science-experiment/`.
+The `vite.config.ts` `base` is `/science-experiment/` for the project-Pages path,
 and `index.html` is copied to `404.html` so a hard refresh on `/attract`
 still loads the app.
 
