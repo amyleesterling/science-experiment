@@ -1144,7 +1144,7 @@ export default function ZoomScene({
             // Wall framing: closer (bigger), look-at raised toward centre so
             // the pair sits lower in frame, and shifted so it fills the space
             // to the right of the left-hand copy panel.
-            return { pos: new THREE.Vector3(-0.10, -0.16, 1.9), look: new THREE.Vector3(-0.30, -0.32, 0) };
+            return { pos: new THREE.Vector3(-0.02, -0.10, 1.32), look: new THREE.Vector3(-0.18, -0.24, 0) };
           }
           // /explore — wide shot, mesh occupies the upper ~60% of the viewport
           // with the centred stage label sitting comfortably below. Camera is
