@@ -82,7 +82,7 @@ const STAGES = [
     eyebrow: "Stage 8 of 9",
     title: "Action potential",
     subtitle:
-      "The signals neurons send are called action potentials. Watch the signal travel: a pulse races down the axon to the synapse, briefly flashes as it crosses, and then ignites a new pulse that travels down the pyramidal cell. This is one neuron, talking to the next. Your brain sends on the order of a quadrillion (1,000,000,000,000,000) electrical signals every second.",
+      "The signals neurons send are called action potentials. Watch the signal travel: a pulse races down the axon to the synapse, briefly flashes as it crosses, and then ignites a new pulse that travels down the pyramidal cell. This is one neuron, talking to the next. Your brain sends on the order of tens of billions of electrical signals every second.",
   },
   {
     eyebrow: "Stage 9 of 9",
@@ -347,17 +347,10 @@ export default function Explore({ attract = false }: { attract?: boolean }) {
       />
 
       {/* 3D scene fills the viewport behind the UI. Stage 9 swaps the
-          synapse/AP scene for the calcium-activity swarm.
-          On the wall, the action-potential stage (7) is nudged to the right
-          so the synapse/axon sits clear of the left-hand copy panel instead
-          of crowding it in the centre. */}
-      <div
-        className="fixed inset-0 z-[1]"
-        style={{
-          transform: attract && stage === 7 ? "translateX(15%)" : "translateX(0)",
-          transition: "transform 0.8s cubic-bezier(0.16, 1, 0.3, 1)",
-        }}
-      >
+          synapse/AP scene for the calcium-activity swarm. On the wall, the
+          action-potential stage is framed (bigger + lower + right) via the
+          camera in ZoomScene so it clears the left-hand copy panel. */}
+      <div className="fixed inset-0 z-[1]">
         {isActivityStage ? (
           activityData ? (
             <CellSwarm
@@ -376,6 +369,7 @@ export default function Explore({ attract = false }: { attract?: boolean }) {
             stage={stage}
             apFireToken={apFireToken}
             hideProgress={attract}
+            attract={attract}
           />
         )}
       </div>

@@ -237,11 +237,17 @@ export default function CellSwarm({
       if (theta !== undefined) {
         // Drive camera deterministically — one full revolution per loop.
         // Slight upward tilt so the swarm reads as 3D, not flat.
-        const tiltY = swarmRadius * 0.35;
+        // CAPTURE_ZOOM (<1) pulls the camera in from the auto-fit distance so
+        // the swarm fills the frame in the exported video instead of floating
+        // small in a sea of black. Capture-only — the interactive /activity
+        // page keeps the wider auto-fit framing.
+        const CAPTURE_ZOOM = 0.5;
+        const camDist = swarmRadius * CAPTURE_ZOOM;
+        const tiltY = camDist * 0.35;
         camera.position.set(
-          swarmCenter.x + swarmRadius * Math.cos(theta),
+          swarmCenter.x + camDist * Math.cos(theta),
           swarmCenter.y + tiltY,
-          swarmCenter.z + swarmRadius * Math.sin(theta),
+          swarmCenter.z + camDist * Math.sin(theta),
         );
         camera.lookAt(swarmCenter);
       } else {

@@ -81,6 +81,11 @@ interface Props {
   // the camera entirely from the per-stage waypoints and must never let a
   // passerby's touch/scroll take over.
   interactive?: boolean;
+  // Wall (/attract) mode. Only affects the action-potential stage framing:
+  // the copy lives in a left panel there (not centred-bottom like /explore),
+  // so the synapse pair is framed bigger, lower, and pushed right to fill the
+  // space beside the text instead of floating small and high.
+  attract?: boolean;
 }
 
 export default function ZoomScene({
@@ -92,10 +97,13 @@ export default function ZoomScene({
   hideProgress = false,
   studioLighting = false,
   interactive = true,
+  attract = false,
 }: Props) {
   const containerRef = useRef<HTMLDivElement>(null);
   const stageRef = useRef(stage);
   stageRef.current = stage;
+  const attractRef = useRef(attract);
+  attractRef.current = attract;
   const apFireTokenRef = useRef(apFireToken);
   apFireTokenRef.current = apFireToken;
   const [progress, setProgress] = useState(0);
@@ -1131,11 +1139,17 @@ export default function ZoomScene({
           // below the marker — close enough to feel like rotating around it.)
           return { pos: new THREE.Vector3(0.04, 0.05, 0.42), look: new THREE.Vector3(0, -0.18, 0) };
         case 7:
-          // Action potential — wide shot, mesh occupies the upper ~60%
-          // of the viewport with the stage label sitting comfortably
-          // below. Camera is pulled back and look-at is dropped so the
-          // synapse contact (world origin) lands near the top of the
-          // frame, the way Amy sketched the layout.
+          // Action potential.
+          if (attractRef.current) {
+            // Wall framing: closer (bigger), look-at raised toward centre so
+            // the pair sits lower in frame, and shifted so it fills the space
+            // to the right of the left-hand copy panel.
+            return { pos: new THREE.Vector3(-0.10, -0.16, 1.9), look: new THREE.Vector3(-0.30, -0.32, 0) };
+          }
+          // /explore — wide shot, mesh occupies the upper ~60% of the viewport
+          // with the centred stage label sitting comfortably below. Camera is
+          // pulled back and look-at is dropped so the synapse contact (world
+          // origin) lands near the top of the frame.
           return { pos: new THREE.Vector3(0.45, -0.30, 2.30), look: new THREE.Vector3(0.30, -0.65, 0) };
         default:
           return { pos: new THREE.Vector3(0, 0, 5), look: new THREE.Vector3(0, 0, 0) };
