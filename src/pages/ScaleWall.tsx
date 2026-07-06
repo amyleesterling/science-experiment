@@ -29,11 +29,12 @@ export default function ScaleWall() {
             One neuron, thousands of synapses
           </h2>
           <p className="mt-5 text-white/80 font-light leading-relaxed" style={{ fontSize: "clamp(1.05rem, 1.35vw, 1.5rem)" }}>
-            A single neuron makes thousands of connections. Scale that up and the numbers get almost
-            impossible to picture:
+            One cell, thousands of connections. Its upper branches — dendrites — receive signals, and its
+            axon passes them on, forming synapses with thousands of other neurons.
           </p>
 
           <div className="mt-8">
+            <p className="uppercase tracking-[0.3em] text-white/40 text-xs mb-4">By the numbers</p>
             <BrainStatsCompact />
           </div>
         </div>

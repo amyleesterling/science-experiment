@@ -19,13 +19,19 @@ export default function BrainStatsCompact() {
           <div className="flex items-baseline justify-between gap-3">
             <span className="uppercase tracking-[0.22em] text-white/50 text-xs">{s.label}</span>
             <span className="text-xs text-white/40 tabular-nums">
-              <span style={{ color: HUMAN }}>{s.ratio}</span> more in humans
+              <span style={{ color: HUMAN }}>{s.ratio}</span> more
             </span>
           </div>
-          <div className="mt-1.5 flex items-baseline gap-2.5 font-display font-light" style={{ fontSize: "clamp(1.1rem, 1.5vw, 1.5rem)" }}>
-            <span style={{ color: MOUSE }}>{s.mouse}</span>
+          <div className="mt-2 flex items-baseline gap-2.5 flex-wrap" style={{ fontSize: "clamp(1.1rem, 1.5vw, 1.5rem)" }}>
+            <span className="flex items-baseline gap-1.5">
+              <span className="text-[10px] uppercase tracking-[0.15em]" style={{ color: MOUSE }}>Mouse</span>
+              <span className="font-display font-light" style={{ color: MOUSE }}>{s.mouse}</span>
+            </span>
             <span className="text-white/30 text-base">→</span>
-            <span style={{ color: HUMAN }}>{s.human}</span>
+            <span className="flex items-baseline gap-1.5">
+              <span className="text-[10px] uppercase tracking-[0.15em]" style={{ color: HUMAN }}>Human</span>
+              <span className="font-display font-light" style={{ color: HUMAN }}>{s.human}</span>
+            </span>
           </div>
           <p className="mt-1 text-white/55 leading-snug" style={{ fontSize: "clamp(0.85rem, 1vw, 1.05rem)" }}>
             ≈ {s.anchor}
