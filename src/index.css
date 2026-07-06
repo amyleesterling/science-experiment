@@ -118,7 +118,6 @@
    from /explore via the present icon (or "p" key). */
 body.present-mode header { display: none !important; }
 
-/* Attract mode (/attract): a non-interactive wall-display loop. Hide the
-   cursor and any nav chrome so nothing but the experience is on screen. */
-body.attract-mode { cursor: none !important; }
+/* Attract mode (/attract): auto-looping wall display, but still interactive
+   (drag to rotate) with a visible cursor. Just keep the nav chrome out. */
 body.attract-mode header { display: none !important; }

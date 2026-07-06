@@ -375,7 +375,6 @@ export default function Explore({ attract = false }: { attract?: boolean }) {
           <ZoomScene
             stage={stage}
             apFireToken={apFireToken}
-            interactive={!attract}
             hideProgress={attract}
           />
         )}
