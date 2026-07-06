@@ -1,35 +1,40 @@
-import { Link } from "react-router-dom";
 import BrainStatsCompact from "../components/BrainStatsCompact";
-import ReferenceTable from "../components/ReferenceTable";
 
-// Standalone "Brains by the numbers" page — the simplified stats (no heavy
-// animated visual) with a reference table and a link to the full sourcing.
-// This is the version destined for inner_cosmos. Route: /scale-wall.
+// Preview of the wall's card 5: copy + stats in the left panel, the 3D neuron
+// occupies the right. Route: /scale-wall.
 
 export default function ScaleWall() {
   return (
-    <div className="min-h-screen w-full text-white" style={{ background: "radial-gradient(ellipse at 50% 0%, #101a2e 0%, #04060c 60%)" }}>
-      <div className="mx-auto max-w-2xl px-6 py-16 sm:py-24">
-        <p className="uppercase tracking-[0.4em] text-white/45 text-xs mb-4">By the numbers</p>
-        <h1 className="font-display font-light leading-[1.05]" style={{ fontSize: "clamp(2.2rem, 5vw, 3.6rem)" }}>
-          Brains by the numbers
-        </h1>
-        <p className="mt-5 text-white/75 font-light leading-relaxed" style={{ fontSize: "clamp(1.05rem, 1.4vw, 1.35rem)" }}>
-          One cell, thousands of connections — its dendrites receive signals and its axon passes them on.
-          Scale that to a whole brain and the numbers stop meaning much, so here they are next to things
-          you can picture.
-        </p>
+    <div
+      className="relative min-h-screen w-full text-white overflow-hidden"
+      style={{ background: "radial-gradient(ellipse at 62% 45%, rgba(28,39,66,0.5) 0%, rgba(4,6,12,1) 70%)" }}
+    >
+      {/* soft left scrim, same as the wall */}
+      <div
+        className="pointer-events-none absolute inset-y-0 left-0 w-[46vw]"
+        style={{ background: "linear-gradient(to right, rgba(4,6,12,0.85) 0%, rgba(4,6,12,0.5) 32%, rgba(4,6,12,0) 70%)" }}
+      />
 
-        <div className="mt-10">
-          <BrainStatsCompact />
-        </div>
+      {/* space reserved for the real 3D neuron on the wall */}
+      <div className="absolute inset-y-0 right-0 w-[52%] flex items-center justify-center">
+        <span className="text-white/12 text-xs uppercase tracking-[0.3em]">3D neuron</span>
+      </div>
 
-        <div className="mt-14">
-          <p className="uppercase tracking-[0.28em] text-white/45 text-xs mb-4">Reference</p>
-          <ReferenceTable />
-          <Link to="/citations" className="inline-block mt-5 text-sm text-white/45 hover:text-white/80 transition underline decoration-white/25">
-            Sources &amp; calculations →
-          </Link>
+      {/* left copy panel */}
+      <div className="relative z-10 flex min-h-screen items-center">
+        <div className="pl-[4.5vw] pr-8 w-[min(42rem,45vw)]">
+          <p className="uppercase tracking-[0.4em] text-white/55 text-sm mb-5">Stage 5 of 8</p>
+          <h2 className="font-display font-light leading-[1.05]" style={{ fontSize: "clamp(2.2rem, 3.4vw, 4rem)" }}>
+            Brains by the numbers
+          </h2>
+          <p className="mt-4 text-white/80 font-light leading-relaxed" style={{ fontSize: "clamp(1rem, 1.3vw, 1.4rem)" }}>
+            One cell, thousands of connections — its dendrites receive, its axon sends. Now scale it to a
+            whole brain.
+          </p>
+
+          <div className="mt-7">
+            <BrainStatsCompact />
+          </div>
         </div>
       </div>
     </div>

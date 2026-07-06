@@ -1,13 +1,11 @@
-// Simplified brain-scale stats for the wall's card 5 and the standalone
-// "Brains by the numbers" page. Mouse / Human are column headers (stated
-// once); each value carries a color-coded anchor so it's obvious which brain
-// it describes. The full animated version lives on /scale-test.
+// Brain-scale stats: Mouse / Human as color-coded columns (stated once); each
+// value carries a color-coded anchor so it's clear which brain it describes.
 
 const MOUSE = "#7ee0ff";
 const HUMAN = "#b78bff";
 
 type Cell = { v: string; a: string };
-const STATS: { label: string; note?: string; mouse: Cell; human: Cell }[] = [
+const STATS: { label: string; lead?: string; mouse: Cell; human: Cell }[] = [
   {
     label: "Neurons",
     mouse: { v: "70 million", a: "the population of the UK" },
@@ -19,10 +17,10 @@ const STATS: { label: string; note?: string; mouse: Cell; human: Cell }[] = [
     human: { v: "100 trillion", a: "3 million yrs to count, 1/sec" },
   },
   {
-    label: "Wiring",
-    note: "all axon — not just myelinated",
+    label: "Neuronal wiring",
+    lead: "If you lined up all the neuron branches end to end…",
     mouse: { v: "a few thousand km", a: "once across the US" },
-    human: { v: "~2 million km*", a: "50× around the Earth" },
+    human: { v: "~2 million km", a: "50× around the Earth" },
   },
 ];
 
@@ -41,11 +39,9 @@ export default function BrainStatsCompact() {
 
       {STATS.map((s) => (
         <div key={s.label} className="border-t border-white/10 pt-3 pb-3.5">
-          <div className="flex items-baseline gap-2 mb-1.5">
-            <span className="uppercase tracking-[0.22em] text-white/55 text-xs">{s.label}</span>
-            {s.note && <span className="text-[11px] text-white/35">· {s.note}</span>}
-          </div>
-          <div className="grid grid-cols-2 gap-x-6">
+          <span className="uppercase tracking-[0.22em] text-white/55 text-xs">{s.label}</span>
+          {s.lead && <p className="text-[13px] text-white/45 mt-1 leading-snug">{s.lead}</p>}
+          <div className="grid grid-cols-2 gap-x-6 mt-1.5">
             {[{ c: MOUSE, d: s.mouse }, { c: HUMAN, d: s.human }].map((col, i) => (
               <div key={i}>
                 <div className="font-display font-light" style={{ color: col.c, fontSize: "clamp(1.05rem, 1.4vw, 1.45rem)" }}>
@@ -59,8 +55,6 @@ export default function BrainStatsCompact() {
           </div>
         </div>
       ))}
-
-      <p className="text-[11px] text-white/35 mt-1">* estimated — see sources</p>
     </div>
   );
 }

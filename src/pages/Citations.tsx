@@ -28,9 +28,9 @@ export default function Citations() {
       <div className="mx-auto max-w-3xl px-6 py-16 sm:py-24">
         <Link to="/" className="text-sm text-white/45 hover:text-white/80 transition">← Inner Cosmos</Link>
 
-        <p className="text-[11px] uppercase tracking-[0.4em] text-white/45 mt-10 mb-4">Sources · calculations · credits</p>
+        <p className="text-[11px] uppercase tracking-[0.4em] text-white/45 mt-10 mb-4">Internal reference</p>
         <h1 className="font-display font-light leading-[1.05]" style={{ fontSize: "clamp(2rem,4.5vw,3.4rem)" }}>
-          Where the numbers come from
+          Citations &amp; calculations
         </h1>
         <p className="mt-5 text-lg text-white/70 leading-relaxed">
           Every figure in this experience is sourced. Most are well-established counts; the trickiest —
