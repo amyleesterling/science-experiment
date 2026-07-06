@@ -14,7 +14,7 @@ const STATS: { label: string; lead?: string; mouse: Cell; human: Cell }[] = [
   },
   {
     label: "Synapses",
-    mouse: { v: "~250 billion", a: "" },
+    mouse: { v: "250 billion", a: "" },
     human: { v: "100 trillion", a: "" },
   },
   {
