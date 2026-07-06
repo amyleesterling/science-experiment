@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import ReferenceTable from "../components/ReferenceTable";
 import NeuronIcon from "../components/NeuronIcon";
+import LandmarkMetrics from "../components/LandmarkMetrics";
 
 // ---------------------------------------------------------------------------
 // Test page for the "brain, by the numbers" comparison viz that will become
@@ -209,6 +210,7 @@ export default function ScaleTest() {
           {ROWS.map((r) => (
             <Stat key={r.key} row={r} run={run} />
           ))}
+          <LandmarkMetrics run={run} />
         </div>
 
         {/* Reference table */}

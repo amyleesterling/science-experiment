@@ -173,6 +173,26 @@ export default function Citations() {
           </div>
         </div>
 
+        {/* Landmark comparisons — the "famous yardsticks" card on /scale-test */}
+        <div className="mt-6 rounded-2xl glass p-7 sm:p-9">
+          <h2 className="font-display font-light mb-2" style={{ fontSize: "clamp(1.4rem,2.3vw,1.9rem)" }}>
+            Landmark comparisons
+          </h2>
+          <p className="text-white/60 mb-5 text-[15px] leading-relaxed">
+            The "familiar yardsticks" card. Two of these build on the baseball volume above (86 billion balls ≈ 28.1 million m³);
+            two build on the ~2 million km wiring total.
+          </p>
+          <ul className="text-white/70 text-[15px] leading-relaxed space-y-2.5 list-disc pl-5">
+            <li><span style={{ color: HUMAN }}>~11 Great Pyramids of Giza</span> — 28.1 million m³ ÷ 2.58 million m³ (the Great Pyramid's volume) ≈ 10.9.</li>
+            <li><span style={{ color: HUMAN }}>9 Eiffel Towers / 3.6 Burj Khalifas</span> — poured onto Fenway's field (~9,400 m²), 28.1 million m³ of baseballs stands 28.1M ÷ 9,400 ≈ <span style={{ color: HUMAN }}>2,970 m (~3 km)</span> high; ÷ 330 m (Eiffel) ≈ 9, ÷ 828 m (Burj Khalifa) ≈ 3.6.</li>
+            <li><span style={{ color: HUMAN }}>~360× across the Atlantic</span> — 2,000,000 km of axon ÷ ~5,500 km (New York to Lisbon) ≈ 364.</li>
+            <li><span style={{ color: HUMAN }}>~2,700 years to count</span> — 86 billion neurons ÷ 31.6 million seconds per year (at one per second) ≈ 2,725 years.</li>
+          </ul>
+          <p className="mt-3 text-[13px] text-white/45">
+            <span className="uppercase tracking-[0.15em] text-white/35">Source</span> · Great Pyramid volume ≈ 2.58 million m³ (base 230 m, height 146.6 m); Eiffel Tower ~330 m, Burj Khalifa ~828 m; landmark heights and the Atlantic crossing are standard figures.
+          </p>
+        </div>
+
         {/* Pictured comparisons — the "next to something you can see" anchors */}
         <h2 className="font-display font-light mt-14 mb-3" style={{ fontSize: "clamp(1.4rem,2.2vw,1.8rem)" }}>The pictured comparisons</h2>
         <p className="text-white/70 text-[15px] leading-relaxed mb-4">
