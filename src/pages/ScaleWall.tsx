@@ -25,14 +25,17 @@ export default function ScaleWall() {
         <div className="pl-[4.5vw] pr-8 w-[min(42rem,45vw)]">
           <p className="uppercase tracking-[0.4em] text-white/55 text-sm mb-5">Stage 5 of 8</p>
           <h2 className="font-display font-light leading-[1.05]" style={{ fontSize: "clamp(2.2rem, 3.4vw, 4rem)" }}>
-            Brains by the numbers
+            A neuron
           </h2>
           <p className="mt-4 text-white/80 font-light leading-relaxed" style={{ fontSize: "clamp(1rem, 1.3vw, 1.4rem)" }}>
             One cell, thousands of connections. Neurons are the primary cells of the brain. They come in
             thousands of varieties.
           </p>
 
-          <div className="mt-7">
+          <div className="mt-8">
+            <h3 className="font-display font-light text-white/90 mb-4" style={{ fontSize: "clamp(1.3rem, 1.8vw, 1.9rem)" }}>
+              Brains by the numbers
+            </h3>
             <BrainStatsCompact />
           </div>
         </div>
