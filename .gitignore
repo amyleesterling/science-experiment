@@ -25,9 +25,11 @@ dist-ssr
 scripts/__pycache__/
 .functional-cache/
 
-# Rendered activity loop video — large (~110MB), generated locally via
+# Rendered activity loop videos — large (100MB+), generated locally via
 # `npm run render-video`. Kept out of the repo so the Pages deploy stays light.
-public/activity-loop.mp4
+# Pattern covers the default name + any renamed exports (e.g. for Drive).
+public/*activity-loop*.mp4
+public/*.mp4
 
 # Intermediate caches written by older runs of scripts/extract-functional-cells.py
 # (the current script writes to .functional-cache/ instead).

@@ -8,6 +8,7 @@ import Brain from "./pages/Brain";
 import Brain2 from "./pages/Brain2";
 import Kindergarten from "./pages/Kindergarten";
 import Wonder from "./pages/Wonder";
+import ScaleTest from "./pages/ScaleTest";
 import NavBar from "./components/NavBar";
 
 // Vite's BASE_URL is "/" in dev and "/inner_cosmos/" in production. React
@@ -33,6 +34,8 @@ export default function App() {
         <Route path="/kindergarten" element={<Kindergarten />} />
         <Route path="/kindergarten/:stage" element={<Kindergarten />} />
         <Route path="/wonder" element={<Wonder />} />
+        {/* Test page for the "by the numbers" comparison viz (→ card 5). */}
+        <Route path="/scale-test" element={<ScaleTest />} />
       </Routes>
     </BrowserRouter>
   );

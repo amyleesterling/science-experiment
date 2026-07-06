@@ -15,7 +15,8 @@ export default function NavBar() {
     pathname.startsWith("/kindergarten/") ||
     pathname.startsWith("/brain") ||
     pathname === "/wonder" ||
-    pathname === "/attract"
+    pathname === "/attract" ||
+    pathname === "/scale-test"
   ) return null;
 
   return (
