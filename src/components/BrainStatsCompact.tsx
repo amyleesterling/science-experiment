@@ -13,8 +13,8 @@ const STATS: { label: string; lead?: string; mouse: Cell; human: Cell }[] = [
   },
   {
     label: "Synapses",
-    mouse: { v: "~250 billion", a: "8,000 yrs to count, 1/sec" },
-    human: { v: "100 trillion", a: "3 million yrs to count, 1/sec" },
+    mouse: { v: "~250 billion", a: "" },
+    human: { v: "100 trillion", a: "" },
   },
   {
     label: "Neuronal wiring",
@@ -47,9 +47,11 @@ export default function BrainStatsCompact() {
                 <div className="font-display font-light" style={{ color: col.c, fontSize: "clamp(1.05rem, 1.4vw, 1.45rem)" }}>
                   {col.d.v}
                 </div>
-                <div className="mt-0.5 text-sm leading-snug" style={{ color: col.c, opacity: 0.68 }}>
-                  ≈ {col.d.a}
-                </div>
+                {col.d.a && (
+                  <div className="mt-0.5 text-sm leading-snug" style={{ color: col.c, opacity: 0.68 }}>
+                    ≈ {col.d.a}
+                  </div>
+                )}
               </div>
             ))}
           </div>

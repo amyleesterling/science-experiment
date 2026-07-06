@@ -783,8 +783,8 @@ export default function Explore({ attract = false }: { attract?: boolean }) {
                   {stage === 5 && (
                     <div className="mt-7">
                       <h3
-                        className="font-display font-light text-white/90 mb-3.5"
-                        style={{ fontSize: "clamp(1.2rem, 1.6vw, 1.8rem)", textShadow: "0 1px 12px rgba(4,6,12,0.95)" }}
+                        className="uppercase tracking-[0.3em] text-white/55 text-sm mb-4"
+                        style={{ textShadow: "0 1px 12px rgba(4,6,12,0.95)" }}
                       >
                         Brains by the numbers
                       </h3>

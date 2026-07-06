@@ -33,7 +33,7 @@ export default function ScaleWall() {
           </p>
 
           <div className="mt-8">
-            <h3 className="font-display font-light text-white/90 mb-4" style={{ fontSize: "clamp(1.3rem, 1.8vw, 1.9rem)" }}>
+            <h3 className="uppercase tracking-[0.3em] text-white/55 text-sm mb-4">
               Brains by the numbers
             </h3>
             <BrainStatsCompact />
