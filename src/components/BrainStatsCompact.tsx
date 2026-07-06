@@ -8,9 +8,9 @@ type Cell = { v: string; a: string };
 const STATS: { label: string; lead?: string; mouse: Cell; human: Cell }[] = [
   {
     label: "Neurons",
-    lead: "As baseballs, piled onto Fenway's field…",
+    lead: "As baseballs, they'd fill Fenway Park…",
     mouse: { v: "70 million", a: "8 feet deep" },
-    human: { v: "86 billion", a: "2 miles high" },
+    human: { v: "86 billion", a: "50× to the brim" },
   },
   {
     label: "Synapses",
@@ -20,7 +20,7 @@ const STATS: { label: string; lead?: string; mouse: Cell; human: Cell }[] = [
   {
     label: "Neuronal wiring",
     lead: "If you lined up all the neuron branches end to end…",
-    mouse: { v: "~2,000 km / ~1,250 mi", a: "Boston to Miami" },
+    mouse: { v: "~2,000 km", a: "Boston to Miami" },
     human: { v: "~2 million km", a: "50× around the Earth" },
   },
 ];

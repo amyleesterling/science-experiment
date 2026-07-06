@@ -24,7 +24,7 @@ export default function ReferenceTable() {
             <td className="p-4 text-right text-white/80">~70 million</td>
             <td className="p-4 text-right text-white/80">~200–300 billion</td>
             <td className="p-4 text-right text-white/60">—</td>
-            <td className="p-4 text-right text-white/80">~2,000 km / ~1,250 mi</td>
+            <td className="p-4 text-right text-white/80">~2,000 km</td>
           </tr>
           <tr className="border-t border-white/10">
             <td className="p-4" style={{ color: HUMAN }}>Human brain</td>

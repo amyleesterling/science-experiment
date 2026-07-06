@@ -24,8 +24,8 @@ const ROWS: Row[] = [
   {
     key: "neurons",
     label: "Neurons",
-    mouse: { value: 70e6, display: "70 million", anchor: "≈ 8 ft deep on Fenway's field (as baseballs)" },
-    human: { value: 86e9, display: "86 billion", anchor: "≈ 2 miles high on the field (as baseballs)" },
+    mouse: { value: 70e6, display: "70 million", anchor: "≈ Fenway filled 8 ft deep (as baseballs)" },
+    human: { value: 86e9, display: "86 billion", anchor: "≈ Fenway filled 50× to the brim (as baseballs)" },
     ratio: "~1,200× more",
   },
   {
