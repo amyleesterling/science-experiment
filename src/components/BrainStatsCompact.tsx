@@ -8,9 +8,9 @@ type Cell = { v: string; a: string };
 const STATS: { label: string; lead?: string; mouse: Cell; human: Cell }[] = [
   {
     label: "Neurons",
-    lead: "As baseballs, they'd fill Fenway Park…",
-    mouse: { v: "70 million", a: "not even once" },
-    human: { v: "86 billion", a: "~50 times over" },
+    lead: "As baseballs, piled onto Fenway's field…",
+    mouse: { v: "70 million", a: "8 feet deep" },
+    human: { v: "86 billion", a: "2 miles high" },
   },
   {
     label: "Synapses",

@@ -7,7 +7,7 @@ import { Link } from "react-router-dom";
 const MOUSE = "#7ee0ff";
 const HUMAN = "#b78bff";
 
-// Every cell shown in the experience — all real MICrONS minnie65 (seg_m1300)
+// Every cell shown in the experience, all real MICrONS minnie65 (seg_m1300)
 // reconstructions. [nickname, type, seg ID].
 const CELLS: [string, string, string][] = [
   ["Lightning Tree", "Layer 5 thick-tufted pyramidal", "864691135572530981"],
@@ -53,25 +53,25 @@ export default function Citations() {
           Citations &amp; calculations
         </h1>
         <p className="mt-5 text-lg text-white/70 leading-relaxed">
-          Every figure in this experience is sourced. Most are well-established counts; the trickiest —
-          the total length of wiring in a single human brain — is an <em>estimate</em>, so here is exactly
+          Every figure in this experience is sourced. Most are well-established counts; the trickiest,
+          the total length of wiring in a single human brain, is an <em>estimate</em>, so here is exactly
           how it's built and what it rests on.
         </p>
 
         {/* Wiring derivation */}
         <div className="mt-14 rounded-2xl glass p-7 sm:p-9">
           <h2 className="font-display font-light mb-2" style={{ fontSize: "clamp(1.5rem,2.5vw,2rem)" }}>
-            Human brain wiring — <span style={{ color: HUMAN }}>~2 million km</span>
+            Human brain wiring: <span style={{ color: HUMAN }}>~2 million km</span>
           </h2>
           <p className="text-white/60 mb-8 text-[15px] leading-relaxed">
             You can't count individual fibers, so you count how densely wire is packed into tissue, then
-            multiply by how much tissue there is — and add the long-range tracts on top.
+            multiply by how much tissue there is, then add the long-range tracts on top.
           </p>
 
           <Step
             n="1"
-            title="Density — ~4.4 km of cable per mm³ of cortex"
-            source={<>Braitenberg &amp; Schüz, <em>Cortex: Statistics and Geometry of Neuronal Connectivity</em> (1998). Cross-checked in cat cortex, and in the MICrONS mouse reconstruction (~4 km of axon, 500M+ synapses per mm³ — <a className="underline decoration-white/30 hover:decoration-white" href="https://www.nih.gov/news-events/news-releases/scientists-map-unprecedented-detail-connections-visual-perception-mouse-brain" target="_blank" rel="noreferrer">NIH, 2025</a>).</>}
+            title="Density: ~4.4 km of cable per mm³ of cortex"
+            source={<>Braitenberg &amp; Schüz, <em>Cortex: Statistics and Geometry of Neuronal Connectivity</em> (1998). Cross-checked in cat cortex, and in the MICrONS mouse reconstruction (~4 km of axon, 500M+ synapses per mm³; <a className="underline decoration-white/30 hover:decoration-white" href="https://www.nih.gov/news-events/news-releases/scientists-map-unprecedented-detail-connections-visual-perception-mouse-brain" target="_blank" rel="noreferrer">NIH, 2025</a>).</>}
           >
             A cubic millimeter of cortex holds roughly <span style={{ color: HUMAN }}>~4 km of axon + ~0.4 km of dendrite ≈ 4.4 km</span>.
             The figure originates with Braitenberg &amp; Schüz's cortical statistics and is cross-checked
@@ -81,37 +81,39 @@ export default function Citations() {
           </Step>
           <Step
             n="2"
-            title="Volume — ~500,000 mm³ of neocortical gray matter"
-            source={<>Stereological vs MRI volumetry of human neocortex; stereology e.g. Pakkenberg &amp; Gundersen, <em>J. Comp. Neurol.</em> (1997). <span className="text-amber-200/60">(Exact 454/530 cm³ figures — do you have the specific paper? I'll cite it directly.)</span></>}
+            title="Volume: ~500,000 mm³ of neocortical gray matter"
+            source={<>Stereological vs MRI volumetry of human neocortex; stereology e.g. Pakkenberg &amp; Gundersen, <em>J. Comp. Neurol.</em> (1997). <span className="text-amber-200/60">(Exact 454/530 cm³ figures; do you have the specific paper? I'll cite it directly.)</span></>}
           >
             A direct method comparison put cerebral cortex volume at 454 cm³ by stereology versus 530 cm³
-            by MRI — bracketing ~500 cm³, i.e. 500,000 mm³.
+            by MRI, bracketing ~500 cm³, i.e. 500,000 mm³.
           </Step>
-          <Step n="3" title="Multiply — ≈ 2.2 million km" source={<>Arithmetic — 4.4 × 500,000. No external source.</>}>
+          <Step n="3" title="Multiply: ≈ 2.2 million km" source={<>Arithmetic: 4.4 × 500,000. No external source.</>}>
             4.4 km/mm³ × 500,000 mm³ ≈ <span style={{ color: HUMAN }}>2.2 million km</span>. (Just arithmetic.)
           </Step>
           <Step
             n="4"
-            title="Add the white-matter tracts — ~150,000–176,000 km"
-            source={<>Marner, Nyengaard, Tang &amp; Pakkenberg, <em>J. Comp. Neurol.</em> (2003) — stereology on 36 brains.</>}
+            title="Add the white-matter tracts: ~150,000–176,000 km"
+            source={<>Marner, Nyengaard, Tang &amp; Pakkenberg, <em>J. Comp. Neurol.</em> (2003), stereology on 36 brains.</>}
           >
             The one rigorously <em>measured</em> piece, from stereology on 36 brains: total myelinated fiber
             length was ~176,000 km in males and ~149,000 km in females at age 20 (Marner et al., 2003).
             Adding it lands the total around <span style={{ color: HUMAN }}>2–2.4 million km</span>.
           </Step>
 
-          <p className="mt-2 text-white/55 text-[14px] leading-relaxed">
-            This is an estimate, not a direct measurement: only the myelinated ~10% (~176,000 km) has been
-            measured whole-brain (Marner et al., 2003). The density that captures the rest is measured
-            directly in cat and mouse and matches the human H01 sample (Shapson-Coe et al., 2024; ~1 mm³,
-            130M synapses); an independent estimate puts the total nearer ~850,000 km.
-          </p>
+          <div className="mt-3 rounded-xl p-5" style={{ background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.09)" }}>
+            <p className="text-white/60 text-[14px] leading-relaxed">
+              This is an estimate, not a direct measurement: only the myelinated ~10% (~176,000 km) has been
+              measured whole-brain (Marner et al., 2003). The density that captures the rest is measured
+              directly in cat and mouse and matches the human H01 sample (Shapson-Coe et al., 2024; ~1 mm³,
+              130M synapses); an independent estimate puts the total nearer ~850,000 km.
+            </p>
+          </div>
         </div>
 
         {/* Mouse wiring */}
         <div className="mt-6 rounded-2xl glass p-7 sm:p-9">
           <h2 className="font-display font-light mb-2" style={{ fontSize: "clamp(1.4rem,2.3vw,1.9rem)" }}>
-            Mouse brain wiring — <span style={{ color: MOUSE }}>~2,000 km</span> <span className="text-white/50">(~1,250 mi)</span>
+            Mouse brain wiring: <span style={{ color: MOUSE }}>~2,000 km</span> <span className="text-white/50">(~1,250 mi)</span>
           </h2>
           <p className="text-white/70 text-[15px] leading-relaxed">
             The same density method applied to the whole mouse brain: ~4.4 km/mm³ × the ~500 mm³ mouse
@@ -127,9 +129,9 @@ export default function Citations() {
         {/* Other numbers */}
         <h2 className="font-display font-light mt-14 mb-4" style={{ fontSize: "clamp(1.4rem,2.2vw,1.8rem)" }}>The other figures</h2>
         <ul className="space-y-3 text-white/70 text-[15px] leading-relaxed">
-          <li><span style={{ color: HUMAN }}>Neurons — ~86 billion (human), ~70 million (mouse).</span> The human count is the direct
+          <li><span style={{ color: HUMAN }}>Neurons: ~86 billion (human), ~70 million (mouse).</span> The human count is the direct
             isotropic-fractionator figure (Azevedo et al., 2009); the mouse count is the standard literature value.</li>
-          <li><span style={{ color: HUMAN }}>Synapses — ~100 trillion (human), ~200–300 billion (mouse).</span> Standard cortical-density
+          <li><span style={{ color: HUMAN }}>Synapses: ~100 trillion (human), ~200–300 billion (mouse).</span> Standard cortical-density
             estimates; the mouse cubic-millimeter density is confirmed directly by MICrONS.</li>
         </ul>
 
@@ -166,8 +168,8 @@ export default function Citations() {
         <p className="text-white/70 text-[15px] leading-relaxed">
           The Activity finale shows <span style={{ color: HUMAN }}>108 real pyramidal-layer cells</span> glowing
           in time with their own measured two-photon calcium activity, recorded while a mouse watched a
-          movie. The traces come from the MICrONS functional dataset — <strong>session 9, scan 4</strong>,
-          imaging planes 2 / 4 / 6 (≈ layers 2/3, 4, 5) — with each imaged soma re-resolved to its current
+          movie. The traces come from the MICrONS functional dataset: <strong>session 9, scan 4</strong>,
+          imaging planes 2 / 4 / 6 (≈ layers 2/3, 4, 5), with each imaged soma re-resolved to its current
           <code className="text-white/55"> seg_m1300</code> mesh, fluorescence converted to ΔF/F and looped
           at 30 fps.
         </p>
@@ -180,10 +182,10 @@ export default function Citations() {
         {/* Credits */}
         <h2 className="font-display font-light mt-14 mb-4" style={{ fontSize: "clamp(1.4rem,2.2vw,1.8rem)" }}>Data, meshes &amp; tools</h2>
         <ul className="space-y-2.5 text-white/70 text-[15px]">
-          <li>Cell meshes — <a className="underline decoration-white/30 hover:decoration-white" href="https://www.microns-explorer.org/" target="_blank" rel="noreferrer">MICrONS</a> minnie65 (seg_m1300), incl. Schneider-Mizell et al. 2024 inhibitory cells.</li>
-          <li>Human cortex tissue anchor — the H01 dataset, Shapson-Coe et al., <em>Science</em> 2024.</li>
-          <li>Mouse brain shell — <a className="underline decoration-white/30 hover:decoration-white" href="https://alleninstitute.org/" target="_blank" rel="noreferrer">Allen Institute</a> Common Coordinate Framework.</li>
-          <li>Rendering &amp; connectomics tooling — <a className="underline decoration-white/30 hover:decoration-white" href="https://github.com/google/neuroglancer" target="_blank" rel="noreferrer">neuroglancer</a>, <a className="underline decoration-white/30 hover:decoration-white" href="https://flywire.ai/" target="_blank" rel="noreferrer">FlyWire</a>.</li>
+          <li>Cell meshes: <a className="underline decoration-white/30 hover:decoration-white" href="https://www.microns-explorer.org/" target="_blank" rel="noreferrer">MICrONS</a> minnie65 (seg_m1300), incl. Schneider-Mizell et al. 2024 inhibitory cells.</li>
+          <li>Human cortex tissue anchor: the H01 dataset, Shapson-Coe et al., <em>Science</em> 2024.</li>
+          <li>Mouse brain shell: <a className="underline decoration-white/30 hover:decoration-white" href="https://alleninstitute.org/" target="_blank" rel="noreferrer">Allen Institute</a> Common Coordinate Framework.</li>
+          <li>Rendering &amp; connectomics tooling: <a className="underline decoration-white/30 hover:decoration-white" href="https://github.com/google/neuroglancer" target="_blank" rel="noreferrer">neuroglancer</a>, <a className="underline decoration-white/30 hover:decoration-white" href="https://flywire.ai/" target="_blank" rel="noreferrer">FlyWire</a>.</li>
         </ul>
 
         {/* Papers */}
