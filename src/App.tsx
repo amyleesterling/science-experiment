@@ -11,6 +11,7 @@ import Wonder from "./pages/Wonder";
 import ScaleTest from "./pages/ScaleTest";
 import ScaleWall from "./pages/ScaleWall";
 import Citations from "./pages/Citations";
+import WallLaunch from "./pages/WallLaunch";
 import NavBar from "./components/NavBar";
 
 // Vite's BASE_URL is "/" in dev and "/inner_cosmos/" in production. React
@@ -30,6 +31,8 @@ export default function App() {
         {/* Non-interactive attract loop for a wall display (e.g. 3628×1600).
             Same guided-zoom experience, auto-advancing + looping, no chrome. */}
         <Route path="/attract" element={<Explore attract />} />
+        {/* Wall launcher: click-to-fullscreen wrapper around the attract loop. */}
+        <Route path="/wall" element={<WallLaunch />} />
         <Route path="/activity" element={<Activity />} />
         <Route path="/brain" element={<Brain />} />
         <Route path="/brain/2" element={<Brain2 />} />
