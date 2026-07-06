@@ -308,7 +308,7 @@ export default function Explore({ attract = false }: { attract?: boolean }) {
   // On the wall, the neuron stage (5) uses a short lead-in above the
   // "Brains by the numbers" stats block; /explore keeps the full paragraph.
   const NEURON_WALL_DESC =
-    "One cell, thousands of connections. Neurons are the primary cells of the brain. They come in thousands of varieties.";
+    "One cell, thousands of connections. Neurons are the most famous cells of the brain. They come in thousands of varieties.";
   const subtitle = attract
     ? stage === 5
       ? NEURON_WALL_DESC

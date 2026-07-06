@@ -28,7 +28,7 @@ export default function ScaleWall() {
             A neuron
           </h2>
           <p className="mt-4 text-white/80 font-light leading-relaxed" style={{ fontSize: "clamp(1rem, 1.3vw, 1.4rem)" }}>
-            One cell, thousands of connections. Neurons are the primary cells of the brain. They come in
+            One cell, thousands of connections. Neurons are the most famous cells of the brain. They come in
             thousands of varieties.
           </p>
 
