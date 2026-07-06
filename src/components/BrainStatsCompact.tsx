@@ -20,7 +20,7 @@ const STATS: { label: string; lead?: string; mouse: Cell; human: Cell }[] = [
   {
     label: "Neuronal wiring",
     lead: "If you lined up all the neuron branches end to end…",
-    mouse: { v: "a few thousand km", a: "once across the US" },
+    mouse: { v: "~2,000 km / ~1,250 mi", a: "Boston to Miami" },
     human: { v: "~2 million km", a: "50× around the Earth" },
   },
 ];

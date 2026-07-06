@@ -7,7 +7,7 @@ import { Link } from "react-router-dom";
 const MOUSE = "#7ee0ff";
 const HUMAN = "#b78bff";
 
-function Step({ n, title, children }: { n: string; title: string; children: React.ReactNode }) {
+function Step({ n, title, source, children }: { n: string; title: string; source: React.ReactNode; children: React.ReactNode }) {
   return (
     <div className="flex gap-4">
       <div className="shrink-0 w-8 h-8 rounded-full flex items-center justify-center text-sm font-display"
@@ -17,6 +17,9 @@ function Step({ n, title, children }: { n: string; title: string; children: Reac
       <div className="pb-6">
         <h3 className="font-display text-lg font-light mb-1.5">{title}</h3>
         <p className="text-white/70 leading-relaxed text-[15px]">{children}</p>
+        <p className="mt-2 text-[13px] text-white/45">
+          <span className="uppercase tracking-[0.15em] text-white/35">Source</span> · {source}
+        </p>
       </div>
     </div>
   );
@@ -48,21 +51,33 @@ export default function Citations() {
             multiply by how much tissue there is — and add the long-range tracts on top.
           </p>
 
-          <Step n="1" title="Density — ~4.4 km of cable per mm³ of cortex">
+          <Step
+            n="1"
+            title="Density — ~4.4 km of cable per mm³ of cortex"
+            source={<>Braitenberg &amp; Schüz, <em>Cortex: Statistics and Geometry of Neuronal Connectivity</em> (1998). Cross-checked in cat cortex, and in the MICrONS mouse reconstruction (~4 km of axon, 500M+ synapses per mm³ — <a className="underline decoration-white/30 hover:decoration-white" href="https://www.nih.gov/news-events/news-releases/scientists-map-unprecedented-detail-connections-visual-perception-mouse-brain" target="_blank" rel="noreferrer">NIH, 2025</a>).</>}
+          >
             A cubic millimeter of cortex holds roughly <span style={{ color: HUMAN }}>~4 km of axon + ~0.4 km of dendrite ≈ 4.4 km</span>.
             The figure originates with Braitenberg &amp; Schüz's cortical statistics and is cross-checked
             independently: cat cortex measured directly at ~3.93 µm of axon + 0.39 µm of dendrite per µm³
             (= 3.93 + 0.39 km/mm³), and the MICrONS mouse reconstruction, where a cubic millimeter held
             ~4 km of axon making 500M+ synapses across 200,000+ cells.
           </Step>
-          <Step n="2" title="Volume — ~500,000 mm³ of neocortical gray matter">
+          <Step
+            n="2"
+            title="Volume — ~500,000 mm³ of neocortical gray matter"
+            source={<>Stereological vs MRI volumetry of human neocortex; stereology e.g. Pakkenberg &amp; Gundersen, <em>J. Comp. Neurol.</em> (1997). <span className="text-amber-200/60">(Exact 454/530 cm³ figures — do you have the specific paper? I'll cite it directly.)</span></>}
+          >
             A direct method comparison put cerebral cortex volume at 454 cm³ by stereology versus 530 cm³
             by MRI — bracketing ~500 cm³, i.e. 500,000 mm³.
           </Step>
-          <Step n="3" title="Multiply — ≈ 2.2 million km">
+          <Step n="3" title="Multiply — ≈ 2.2 million km" source={<>Arithmetic — 4.4 × 500,000. No external source.</>}>
             4.4 km/mm³ × 500,000 mm³ ≈ <span style={{ color: HUMAN }}>2.2 million km</span>. (Just arithmetic.)
           </Step>
-          <Step n="4" title="Add the white-matter tracts — ~150,000–176,000 km">
+          <Step
+            n="4"
+            title="Add the white-matter tracts — ~150,000–176,000 km"
+            source={<>Marner, Nyengaard, Tang &amp; Pakkenberg, <em>J. Comp. Neurol.</em> (2003) — stereology on 36 brains.</>}
+          >
             The one rigorously <em>measured</em> piece, from stereology on 36 brains: total myelinated fiber
             length was ~176,000 km in males and ~149,000 km in females at age 20 (Marner et al., 2003).
             Adding it lands the total around <span style={{ color: HUMAN }}>2–2.4 million km</span>.
@@ -80,6 +95,22 @@ export default function Citations() {
               Treat it as a sound order-of-magnitude estimate, not a measurement.
             </p>
           </div>
+        </div>
+
+        {/* Mouse wiring */}
+        <div className="mt-6 rounded-2xl glass p-7 sm:p-9">
+          <h2 className="font-display font-light mb-2" style={{ fontSize: "clamp(1.4rem,2.3vw,1.9rem)" }}>
+            Mouse brain wiring — <span style={{ color: MOUSE }}>~2,000 km</span> <span className="text-white/50">(~1,250 mi)</span>
+          </h2>
+          <p className="text-white/70 text-[15px] leading-relaxed">
+            The same density method applied to the whole mouse brain: ~4.4 km/mm³ × the ~500 mm³ mouse
+            brain ≈ 2,200 km. The density is anchored by the MICrONS reconstruction of mouse visual cortex,
+            where a single cubic millimeter held ~4 km of axon.
+          </p>
+          <p className="mt-2 text-[13px] text-white/45">
+            <span className="uppercase tracking-[0.15em] text-white/35">Source</span> ·{" "}
+            <a className="underline decoration-white/30 hover:decoration-white" href="https://www.nih.gov/news-events/news-releases/scientists-map-unprecedented-detail-connections-visual-perception-mouse-brain" target="_blank" rel="noreferrer">NIH / MICrONS, 2025</a>; density from Braitenberg &amp; Schüz (1998).
+          </p>
         </div>
 
         {/* Other numbers */}

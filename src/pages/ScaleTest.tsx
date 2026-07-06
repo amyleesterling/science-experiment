@@ -39,7 +39,7 @@ const ROWS: Row[] = [
     key: "wire",
     label: "Wiring — all axon (not just myelinated)",
     unit: "km",
-    mouse: { value: 4000, display: "a few thousand km", anchor: "≈ the width of the United States" },
+    mouse: { value: 2000, display: "~2,000 km", anchor: "≈ Boston to Miami (~1,250 mi)" },
     human: { value: 2000000, display: "~2 million km", anchor: "≈ 50 × around the Earth (estimated)" },
     ratio: "~500× more",
   },
