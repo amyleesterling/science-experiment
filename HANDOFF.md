@@ -25,7 +25,7 @@ fakes/mocks.
 - `/attract` — **the wall.** Auto-loops the 8-stage guided zoom, no chrome, cursor visible, drag-to-rotate on, Pause/Back/Next demo buttons (hidden with **`?exhibit=1`**).
 - `/wall` — click-to-fullscreen launcher for the wall (fills the 3628×1600 screen chromeless). Use `/wall?exhibit=1` for the clean install. Kiosk alternative: `chrome --kiosk "…/attract?exhibit=1"`.
 - `/explore`, `/explore/:stage` — the interactive guided zoom (keeps full copy).
-- `/scale-test` — full **animated** "Brains by the numbers" standalone (count-ups, linear bars, `EarthWrap` SVG, Moon secondary stat). "Preserved" reference version.
+- `/scale-test` — full **animated** "Brains by the numbers" standalone (count-ups, linear bars, `EarthWrap` SVG, Moon secondary stat). "Preserved" reference version. Now **leads with `NeuronIcon`** — an animated pyramidal-neuron glyph (self-sketching apical/basal dendrites + axon, breathing soma, violet→cyan gradient) ringed by the three headline figures (neurons / synapses / wiring, mouse vs human) with a link to `/citations`.
 - `/scale-wall` — preview of the **wall card 5** layout (stats left, 3D space right).
 - `/citations` — **"Citations & calculations"** sources page. **Unexposed** (nothing public links to it). Per-step sources, cells table, functional-data source.
 - `/meet`, `/activity`, `/kindergarten`, `/wonder`, `/brain` — inherited pages from inner_cosmos.
@@ -42,11 +42,15 @@ fakes/mocks.
 Shared component **`BrainStatsCompact.tsx`** (used by wall card 5, `/scale-wall`, and inner_cosmos `/numbers`): Mouse (`#7ee0ff`) / Human (`#b78bff`) as **color-coded columns stated once**, each value with a color-coded `≈` anchor; some rows have a `lead` line.
 
 Current figures & anchors (keep these consistent across BrainStatsCompact, ScaleTest ROWS, ReferenceTable):
-- **Neurons** — mouse 70M, human 86B. Lead: *"As baseballs, they'd fill Fenway Park…"* → mouse "not even once", human "~50 times over". (Replaced "stars in the Milky Way" — unfair vs 100–400B stars, per Herculano-Houzel/Nature — and the mixed Fenway framings.)
-- **Synapses** — mouse ~250B, human 100T. **No anchors on the wall** (Amy removed them).
-- **Neuronal wiring** — lead *"If you lined up all the neuron branches end to end…"* → mouse **~2,000 km / ~1,250 mi** ("Boston to Miami", ~2,020 km), human **~2 million km** ("50× around the Earth"). `/scale-test` also has a Moon secondary ("reach the Moon and back more than twice").
+- **Neurons** — mouse 70M, human 86B. Lead: *"As baseballs, they'd fill Fenway Park…"* → mouse **"8 feet deep"**, human **"50× to the brim"**. (Boston-specific; both = how full Fenway's bowl gets, so the ~1,200× gap holds: 8 ft ≈ 4% of the bowl, human 50 bowls. Replaced "stars in the Milky Way" — unfair vs 100–400B stars per Herculano-Houzel/Nature.)
+- **Synapses** — mouse **"250 billion"** (no `~`, for consistency with human), human **"100 trillion"**. **No anchors on the wall** (Amy removed them; `/scale-test` still has the "years to count" anchors).
+- **Neuronal wiring** — lead *"If you lined up all the neuron branches end to end…"* → mouse **"~2,000 km"** (anchor "Boston to Miami", ~2,020 km; **miles dropped on the wall** — read odd next to km-only human), human **"~2 million km"** ("50× around the Earth"). `/scale-test` keeps `(~1,250 mi)` in its Boston-to-Miami anchor + a Moon secondary; `/citations` keeps `(~1,250 mi)` in the mouse-wiring heading.
 
 `ReferenceTable.tsx` splits **myelinated (~176,000 km measured)** vs **all axon (~2M km est.)**.
+
+**Card-5 copy** (`Explore.tsx` `NEURON_WALL_DESC` + `ScaleWall.tsx`): "One cell, thousands of connections. Neurons are the **most famous** cells of the brain. They come in thousands of varieties." ("most famous" not "primary" — glia roughly match neurons in number.) In attract mode the "Brains by the numbers" sub-label uses the same eyebrow treatment as "Stage N of 8".
+
+`NeuronIcon.tsx` (on `/scale-test`) restates the same three figures next to a neuron glyph — its `STATS` array is a 4th place to keep in sync. Uses mouse synapses **~250B** (midpoint of the cited ~200–300B) to stay parallel with the other cards.
 
 ## Wiring estimate (the load-bearing number) — see `/citations`
 density (**~4.4 km/mm³**, Braitenberg & Schüz 1998; cross-checked cat + MICrONS mouse) × volume (**~500,000 mm³** neocortical gray matter) ≈ **2.2M km**, + white-matter tracts (**~176,000 km**, Marner et al. 2003) → **~2–2.4M km total**. It's an **estimate** (only the myelinated ~10% is measured whole-brain; human H01 / Shapson-Coe et al. 2024 anchors the density; independent estimate ~850,000 km low end). Mouse ~2,000 km = same method × ~500 mm³ mouse brain (NIH/MICrONS 2025).
@@ -68,7 +72,7 @@ The **visible Chrome tab throttles rAF + background-tab setTimeout when unfocuse
 ## Working conventions
 - After edits: `npx tsc -p tsconfig.app.json --noEmit`, then commit (end message with `Co-Authored-By: Claude Opus 4.8 <noreply@anthropic.com>`), push to `main`, wait for the deploy run, then verify the **live bundle** (`curl` the base, grep the served `assets/index-*.js` for the new string).
 - Use **explicit `git add <files>`**, never `git add -A` blindly — large `.mp4` renders live in `public/` and must not be committed.
-- Keep numbers/anchors in sync across `BrainStatsCompact`, `ScaleTest`, `ReferenceTable`, and `Explore` stage copy.
+- Keep numbers/anchors in sync across `BrainStatsCompact`, `ScaleTest`, `ReferenceTable`, `NeuronIcon`, and `Explore` stage copy.
 
 ## Open items / next steps
 1. **Cortex-volume citation** for `/citations` Step 2 (need the exact paper from Amy).
