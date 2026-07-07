@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
 
 // A few globally-known yardsticks for the brain numbers, tied to figures
 // already on the page (86B neurons as baseballs; ~2 million km of axon).
@@ -13,9 +14,9 @@ const stroke = { fill: "none", stroke: "url(#lmStroke)", strokeWidth: 2, strokeL
 
 const METRICS: Metric[] = [
   {
-    big: "~11",
+    big: "~14",
     unit: "Great Pyramids of Giza",
-    sub: "86 billion neurons, as baseballs, is ~28 million m³ — enough to build eleven Great Pyramids.",
+    sub: "86 billion neurons, as apples, is ~36 million m³ — enough to build fourteen Great Pyramids.",
     icon: (
       <svg viewBox="0 0 40 40" width="34" height="34" aria-hidden="true">
         <path {...stroke} d="M20 7 L34 33 L6 33 Z" />
@@ -24,9 +25,9 @@ const METRICS: Metric[] = [
     ),
   },
   {
-    big: "9",
+    big: "11",
     unit: "Eiffel Towers tall",
-    sub: "Dumped on the field, that pile of baseballs would rise ~3 km — nine Eiffel Towers, or 3.6 Burj Khalifas.",
+    sub: "Dumped on the field, that pile of apples would rise ~3.8 km — eleven Eiffel Towers, or 4.6 Burj Khalifas.",
     icon: (
       <svg viewBox="0 0 40 40" width="34" height="34" aria-hidden="true">
         <path {...stroke} d="M20 5 L28 35 M20 5 L12 35" />
@@ -52,8 +53,12 @@ const METRICS: Metric[] = [
     sub: "Counting your 86 billion neurons one per second, without stopping, would take ~2,700 years.",
     icon: (
       <svg viewBox="0 0 40 40" width="34" height="34" aria-hidden="true">
-        <circle {...stroke} cx="20" cy="20" r="14" />
-        <path {...stroke} d="M20 12 L20 20 L26 24" />
+        <circle cx="26" cy="8" r="3.4" fill="url(#lmStroke)" />
+        <path {...stroke} d="M25 12 L18 22" />
+        <path {...stroke} d="M18 22 L24 27 L20 34" />
+        <path {...stroke} d="M18 22 L10 25 L13 32" />
+        <path {...stroke} d="M21 16 L28 14" />
+        <path {...stroke} d="M21 16 L15 20" />
       </svg>
     ),
   },
@@ -74,7 +79,12 @@ export default function LandmarkMetrics({ run }: { run: boolean }) {
       <div className="flex items-baseline justify-between gap-4 mb-1.5">
         <h3 className="font-display text-2xl sm:text-3xl font-light">A few more ways to picture it</h3>
       </div>
-      <p className="text-sm text-white/55 mb-6">Familiar yardsticks for the same brain numbers. The arithmetic is on the citations page.</p>
+      <p className="text-sm text-white/55 mb-6">
+        Familiar yardsticks for the same brain numbers.{" "}
+        <Link to="/citations#landmark-comparisons" className="underline decoration-white/30 hover:decoration-white text-white/70">
+          See the arithmetic →
+        </Link>
+      </p>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         {METRICS.map((m, i) => (

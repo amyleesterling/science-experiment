@@ -26,8 +26,8 @@ const ROWS: Row[] = [
   {
     key: "neurons",
     label: "Neurons",
-    mouse: { value: 70e6, display: "70 million", anchor: "≈ ~2% of Fenway's volume (as baseballs)" },
-    human: { value: 86e9, display: "86 billion", anchor: "≈ fills Fenway ~28× over (as baseballs)" },
+    mouse: { value: 70e6, display: "70 million", anchor: "≈ ~3% of Fenway's volume (as apples)" },
+    human: { value: 86e9, display: "86 billion", anchor: "≈ fills Fenway ~36× over (as apples)" },
     ratio: "~1,200× more",
   },
   {
@@ -77,14 +77,52 @@ function compact(n: number, unit?: "km"): string {
   return Math.round(n).toLocaleString();
 }
 
+// To-scale comparison: two spheres whose VOLUMES are proportional to the two
+// numbers (diameter ∝ ∛value). A linear bar made the mouse an invisible
+// sliver; volume-scaling compresses a 1,000× gap into a legible ~10× width,
+// so both are visible. The caption states the encoding so it stays honest.
+function ScaleSpheres({ ratio, run }: { ratio: number; run: boolean }) {
+  const HUMAN_D = 104;
+  const mouseD = Math.max(9, HUMAN_D / Math.cbrt(ratio));
+  const humanR = HUMAN_D / 2;
+  const mouseR = mouseD / 2;
+  const baseY = 132;
+  const humanCx = 138;
+  const mouseCx = humanCx - humanR - 20 - mouseR;
+  const sphere = (cx: number, cy: number, r: number, id: string, glow: string, delay: number) => (
+    <motion.circle
+      cx={cx}
+      cy={cy}
+      r={r}
+      fill={`url(#${id})`}
+      initial={{ scale: 0, opacity: 0 }}
+      animate={run ? { scale: 1, opacity: 1 } : {}}
+      transition={{ duration: 0.85, delay, ease: [0.16, 1, 0.3, 1] }}
+      style={{ transformOrigin: `${cx}px ${cy}px`, filter: `drop-shadow(0 0 9px ${glow})` }}
+    />
+  );
+  return (
+    <svg viewBox="0 0 200 150" className="w-full max-w-[220px] mx-auto" aria-hidden="true">
+      <defs>
+        <radialGradient id="mSphere" cx="38%" cy="32%" r="72%">
+          <stop offset="0%" stopColor="#dcf6ff" /><stop offset="45%" stopColor={MOUSE} /><stop offset="100%" stopColor="#286a85" />
+        </radialGradient>
+        <radialGradient id="hSphere" cx="38%" cy="32%" r="72%">
+          <stop offset="0%" stopColor="#e9e0ff" /><stop offset="45%" stopColor={HUMAN} /><stop offset="100%" stopColor="#523f95" />
+        </radialGradient>
+      </defs>
+      <line x1="10" y1={baseY} x2="190" y2={baseY} stroke="rgba(255,255,255,0.12)" strokeWidth="1" />
+      {sphere(mouseCx, baseY - mouseR, mouseR, "mSphere", `${MOUSE}88`, 0.5)}
+      {sphere(humanCx, baseY - humanR, humanR, "hSphere", `${HUMAN}88`, 0.35)}
+    </svg>
+  );
+}
+
 function Stat({ row, run }: { row: Row; run: boolean }) {
   const m = useCountUp(row.mouse.value, run);
   const h = useCountUp(row.human.value, run);
-  // Honest LINEAR bar widths — the mouse reads as the tiny sliver it really
-  // is next to the human (a log scale made them look near-equal, hiding the
-  // whole point). A small floor keeps the sliver visible as a faint spark.
-  const mW = Math.max(0.8, (row.mouse.value / row.human.value) * 100);
-  const hW = 100;
+  const ratio = row.human.value / row.mouse.value;
+  const widthX = Math.round(Math.cbrt(ratio));
 
   return (
     <div className="rounded-2xl glass p-7 sm:p-8">
@@ -98,29 +136,30 @@ function Stat({ row, run }: { row: Row; run: boolean }) {
         </span>
       </div>
 
-      {[
-        { who: "Mouse brain", color: MOUSE, live: m, spec: row.mouse, w: mW },
-        { who: "Human brain", color: HUMAN, live: h, spec: row.human, w: hW },
-      ].map((d) => (
-        <div key={d.who} className="mb-5 last:mb-0">
-          <div className="flex items-baseline justify-between gap-3">
-            <span className="text-[11px] uppercase tracking-[0.28em] text-white/45">{d.who}</span>
-            <span className="font-display tabular-nums" style={{ color: d.color, fontSize: "clamp(1.2rem,2vw,1.7rem)" }}>
-              {compact(d.live, row.unit)}
-            </span>
-          </div>
-          <div className="relative h-2 mt-2 rounded-full bg-white/[0.06] overflow-hidden">
-            <motion.div
-              className="absolute inset-y-0 left-0 rounded-full"
-              initial={{ width: 0 }}
-              animate={{ width: run ? `${d.w}%` : 0 }}
-              transition={{ duration: 1.4, ease: [0.16, 1, 0.3, 1] }}
-              style={{ background: `linear-gradient(90deg, ${d.color}55, ${d.color})`, boxShadow: `0 0 12px ${d.color}88` }}
-            />
-          </div>
-          <p className="mt-1.5 text-sm text-white/55">{d.spec.anchor}</p>
+      <div className="flex flex-col sm:flex-row gap-6 sm:gap-8 items-center">
+        <div className="flex-1 min-w-0 w-full">
+          {[
+            { who: "Mouse brain", color: MOUSE, live: m, spec: row.mouse },
+            { who: "Human brain", color: HUMAN, live: h, spec: row.human },
+          ].map((d) => (
+            <div key={d.who} className="mb-4 last:mb-0">
+              <div className="flex items-baseline justify-between gap-3">
+                <span className="text-[11px] uppercase tracking-[0.28em] text-white/45">{d.who}</span>
+                <span className="font-display tabular-nums" style={{ color: d.color, fontSize: "clamp(1.2rem,2vw,1.7rem)" }}>
+                  {compact(d.live, row.unit)}
+                </span>
+              </div>
+              <p className="mt-1 text-sm text-white/55">{d.spec.anchor}</p>
+            </div>
+          ))}
         </div>
-      ))}
+        <div className="shrink-0 w-full sm:w-auto">
+          <ScaleSpheres ratio={ratio} run={run} />
+          <p className="text-[11px] text-white/40 text-center mt-1 leading-snug max-w-[220px] mx-auto">
+            To scale by volume — the human is only ~{widthX}× wider, but that's {row.ratio.replace(" more", "")} the amount.
+          </p>
+        </div>
+      </div>
     </div>
   );
 }
