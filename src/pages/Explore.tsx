@@ -337,6 +337,25 @@ export default function Explore({ attract = false }: { attract?: boolean }) {
 
   return (
     <>
+      {/* Museum edition (/attract) is built for a widescreen wall
+          (3628×1600). On a portrait phone the layout reflows into an
+          unusable narrow column, so instead of resizing we cover it with a
+          rotate prompt that also states the intended display size. This gate
+          hides automatically in landscape (and on desktop), where the
+          widescreen layout reads correctly — see index.css. */}
+      {attract && (
+        <div className="attract-rotate-gate">
+          <div className="attract-rotate-inner">
+            <svg className="attract-rotate-icon" width="54" height="54" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <rect x="7" y="2" width="10" height="20" rx="2.5" stroke="currentColor" strokeWidth="1.4" />
+              <path d="M3.5 8.5A6.5 6.5 0 0 1 8 4M20.5 15.5A6.5 6.5 0 0 1 16 20" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" />
+            </svg>
+            <p className="attract-rotate-dims">This displays at 3628 × 1600</p>
+            <p className="attract-rotate-sub">A widescreen experience built for the wall. Rotate your phone to watch — or open it on a larger screen.</p>
+          </div>
+        </div>
+      )}
+
       <div
         className="fixed inset-0 z-0 pointer-events-none"
         style={{
@@ -552,6 +571,44 @@ export default function Explore({ attract = false }: { attract?: boolean }) {
           ))}
         </div>
       </div>
+      )}
+
+      {/* Attract-loop progress indicator — the same compact cyan bar from
+          inner_cosmos, reused for the wall. Bottom-centered and non-interactive;
+          reflects position in the 8-stage attract sequence (V1 skipped). Shown
+          even in ?exhibit=1 so the wall always has a quiet "where am I" cue. */}
+      {attract && (
+        <div className="fixed bottom-8 left-1/2 -translate-x-1/2 z-30 pointer-events-none flex items-center gap-3 w-[min(420px,34vw)]">
+          <span className="text-[11px] font-mono uppercase tracking-[0.25em] text-white/55 tabular-nums whitespace-nowrap">
+            {String(attractSeqPos + 1).padStart(2, "0")}
+            <span className="text-white/25"> / {String(ATTRACT_SEQUENCE.length).padStart(2, "0")}</span>
+          </span>
+          <div className="relative h-[2px] flex-1">
+            <div className="absolute inset-0 rounded-full bg-white/10" />
+            <div
+              className="absolute inset-y-0 left-0 rounded-full transition-all duration-700 ease-out"
+              style={{
+                width: `${((attractSeqPos + 1) / ATTRACT_SEQUENCE.length) * 100}%`,
+                background: "linear-gradient(90deg, rgba(142,218,255,0.7) 0%, rgba(142,218,255,1) 100%)",
+                boxShadow: "0 0 6px rgba(142, 218, 255, 0.55)",
+              }}
+            />
+            {ATTRACT_SEQUENCE.map((_, i) => (
+              <span
+                key={i}
+                className="absolute top-1/2 -translate-x-1/2 -translate-y-1/2 block rounded-full transition-all duration-300"
+                style={{
+                  left: `${(i / (ATTRACT_SEQUENCE.length - 1)) * 100}%`,
+                  ...(i === attractSeqPos
+                    ? { width: 7, height: 7, background: "#8edaff", boxShadow: "0 0 7px rgba(142,218,255,0.95)" }
+                    : i < attractSeqPos
+                    ? { width: 3, height: 3, background: "rgba(142,218,255,0.7)" }
+                    : { width: 3, height: 3, background: "rgba(255,255,255,0.18)" }),
+                }}
+              />
+            ))}
+          </div>
+        </div>
       )}
 
       <main className={`relative z-10 min-h-screen flex flex-col pointer-events-none ${presentMode || attract ? "hidden" : ""}`}>
