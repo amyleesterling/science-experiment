@@ -26,8 +26,8 @@ const ROWS: Row[] = [
   {
     key: "neurons",
     label: "Neurons",
-    mouse: { value: 70e6, display: "70 million", anchor: "≈ ~3% of Fenway's volume (as apples)" },
-    human: { value: 86e9, display: "86 billion", anchor: "≈ fills Fenway ~36× over (as apples)" },
+    mouse: { value: 70e6, display: "70 million", anchor: "≈ 8 feet deep at Fenway (as baseballs)" },
+    human: { value: 86e9, display: "86 billion", anchor: "≈ Fenway filled ~28× over (as baseballs)" },
     ratio: "~1,200× more",
   },
   {
@@ -257,7 +257,7 @@ export default function ScaleTest() {
           <p className="text-[11px] uppercase tracking-[0.28em] text-white/45 mb-4">Reference</p>
           <ReferenceTable />
           <Link to="/citations" className="inline-block mt-5 text-sm text-white/45 hover:text-white/80 transition underline decoration-white/25">
-            Sources &amp; calculations →
+            Sources &amp; Calculations →
           </Link>
         </div>
       </div>

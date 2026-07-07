@@ -62,7 +62,7 @@ export default function Citations() {
 
         <p className="text-[11px] uppercase tracking-[0.4em] text-white/45 mt-10 mb-4">Internal reference</p>
         <h1 className="font-display font-light leading-[1.05]" style={{ fontSize: "clamp(2rem,4.5vw,3.4rem)" }}>
-          Citations &amp; calculations
+          Citations &amp; Calculations
         </h1>
         <p className="mt-5 text-lg text-white/70 leading-relaxed">
           Every figure in this experience is sourced. Most are well-established counts; the trickiest,
@@ -94,7 +94,7 @@ export default function Citations() {
           <Step
             n="2"
             title="Volume: ~500,000 mm³ of neocortical gray matter"
-            source={<>Stereological vs MRI volumetry of human neocortex; stereology e.g. Pakkenberg &amp; Gundersen, <em>J. Comp. Neurol.</em> (1997). <span className="text-amber-200/60">(Exact 454/530 cm³ figures; do you have the specific paper? I'll cite it directly.)</span></>}
+            source={<>García-Fiñana, Cruz-Orive, Mackay, Pakkenberg &amp; Roberts, <em>NeuroImage</em> <strong>18</strong>:505–516 (2003) — postmortem MRI vs Cavalieri physical sectioning (<a className="underline decoration-white/30 hover:decoration-white" href="https://pubmed.ncbi.nlm.nih.gov/12595203/" target="_blank" rel="noreferrer">PMID 12595203</a>).</>}
           >
             A direct method comparison put cerebral cortex volume at 454 cm³ by stereology versus 530 cm³
             by MRI, bracketing ~500 cm³, i.e. 500,000 mm³.
@@ -147,40 +147,40 @@ export default function Citations() {
             estimates; the mouse cubic-millimeter density is confirmed directly by MICrONS.</li>
         </ul>
 
-        {/* Fenway apple framing — the anchor used on the stats pages */}
+        {/* Fenway baseball framing — the anchor used on the stats pages */}
         <div className="mt-8 rounded-2xl glass p-7 sm:p-9">
           <h2 className="font-display font-light mb-2" style={{ fontSize: "clamp(1.4rem,2.3vw,1.9rem)" }}>
-            Those neurons, as apples in Fenway Park
+            Those neurons, as baseballs in Fenway Park
           </h2>
           <p className="text-white/60 mb-6 text-[15px] leading-relaxed">
-            The stats pages picture the neuron counts as apples poured into Fenway. Here's the arithmetic.
+            The stats pages picture the neuron counts as baseballs at Fenway. Here's the arithmetic.
           </p>
 
-          <Step n="1" title="One apple ≈ 0.42 L of space" source={<>Nominal medium apple ~8 cm dia.; random close packing of equal spheres ≈ 64% (Bernal, 1960).</>}>
-            A medium apple is about <span style={{ color: HUMAN }}>8 cm across ≈ 0.27 L</span>. Poured into a heap, round objects
-            only pack to about <span style={{ color: HUMAN }}>64%</span> of the space (the rest is gaps), so each apple effectively
-            claims <span style={{ color: HUMAN }}>~0.42 L</span>.
+          <Step n="1" title="One baseball ≈ 0.33 L of space" source={<>Official MLB ball spec (2.9 in dia.); random close packing of equal spheres ≈ 64% (Bernal, 1960).</>}>
+            A regulation baseball is <span style={{ color: HUMAN }}>2.9 in across ≈ 12.8 in³ (0.21 L)</span>. Poured into a heap,
+            identical spheres only pack to about <span style={{ color: HUMAN }}>64%</span> of the space (the rest is gaps), so each
+            ball effectively claims <span style={{ color: HUMAN }}>~0.33 L</span>.
           </Step>
-          <Step n="2" title="The whole stadium ≈ 1 million m³" source={<>Estimate: enclosed footprint ~18,000 m² (field + stands) × ~55 m to the top of the light towers. An open-air bowl has no single "top", so this is a rough figure (~0.9–1.4 million m³).</>}>
-            We fill the <em>entire</em> stadium volume, not just the playing field. Fenway's enclosed footprint is roughly
-            <span style={{ color: HUMAN }}> 18,000 m²</span>; up to the <span style={{ color: HUMAN }}>~55 m</span> light towers that's about
-            <span style={{ color: HUMAN }}> 1 million m³</span> of space.
+          <Step n="2" title="Fenway's field ≈ 2.3 acres; the whole bowl ≈ 1 million m³" source={<>Field: Fenway outfield distances as a 90° wedge to the ~360 ft average fence. Bowl: enclosed footprint ~18,000 m² × ~55 m to the light towers (rough, ~0.9–1.4 million m³).</>}>
+            The playing field is about <span style={{ color: HUMAN }}>9,400 m² (2.3 acres)</span>; the whole enclosed stadium is
+            roughly <span style={{ color: HUMAN }}>1 million m³</span>. The two anchors use different pictures — the mouse is a
+            shallow layer on the <em>field</em>, the human fills the whole <em>bowl</em>.
           </Step>
-          <Step n="3" title="Mouse — 70 million apples → ~3% of the stadium" source={<>Arithmetic. No external source.</>}>
-            70,000,000 × 0.42 L ≈ <span style={{ color: MOUSE }}>29,300 m³</span> — only about <span style={{ color: MOUSE }}>3% of the stadium</span>.
-            Not even one Fenway's worth.
+          <Step n="3" title="Mouse — 70 million balls → ~8 feet deep" source={<>Arithmetic. No external source.</>}>
+            70,000,000 × 0.33 L ≈ <span style={{ color: MOUSE }}>22,900 m³</span>. Spread over the 9,400 m² field, that's a layer
+            about <span style={{ color: MOUSE }}>2.4 m — roughly 8 feet</span> deep. Not even one stadium's worth.
           </Step>
-          <Step n="4" title="Human — 86 billion apples → ~36 Fenways" source={<>Arithmetic. Sensitive to the stadium-volume estimate: ~33–40× across the 0.9–1.1 million m³ range.</>}>
-            86,000,000,000 × 0.42 L ≈ <span style={{ color: HUMAN }}>36 million m³</span>, so 86 billion apples would fill Fenway's
-            entire volume <span style={{ color: HUMAN }}>about 36 times over</span>.
+          <Step n="4" title="Human — 86 billion balls → Fenway filled ~28×" source={<>Arithmetic. Sensitive to the bowl-volume estimate: ~25–31× across the 0.9–1.1 million m³ range.</>}>
+            86,000,000,000 × 0.33 L ≈ <span style={{ color: HUMAN }}>28.1 million m³</span>, so 86 billion baseballs would fill
+            Fenway's entire volume <span style={{ color: HUMAN }}>about 28 times over</span>.
           </Step>
 
           <div className="mt-3 rounded-xl p-5" style={{ background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.09)" }}>
             <p className="text-white/60 text-[14px] leading-relaxed">
-              The two framings line up: there are <span style={{ color: HUMAN }}>~1,230×</span> as many human neurons as mouse
-              (86B ÷ 70M), and that is exactly the jump from <span style={{ color: MOUSE }}>~3% of one stadium</span> to
-              <span style={{ color: HUMAN }}> ~36 stadiums</span> (2.9% × 1,230 ≈ 36×). A common back-of-envelope slip is a
-              1,000× unit error (cm³→m³ is ÷1,000,000, not ÷1,000) — which would wrongly "bury" Fenway under the mouse's apples alone.
+              There are <span style={{ color: HUMAN }}>~1,230×</span> as many human neurons as mouse (86B ÷ 70M) — the gap between
+              an <span style={{ color: MOUSE }}>8-foot layer on the field</span> and <span style={{ color: HUMAN }}>28 full stadiums</span>.
+              A common back-of-envelope slip is a 1,000× unit error (cm³→m³ is ÷1,000,000, not ÷1,000), which would wrongly "bury"
+              Fenway under the mouse's baseballs alone.
             </p>
           </div>
         </div>
@@ -191,12 +191,12 @@ export default function Citations() {
             Landmark comparisons
           </h2>
           <p className="text-white/60 mb-5 text-[15px] leading-relaxed">
-            The "familiar yardsticks" card. Two of these build on the apple volume above (86 billion apples ≈ 36 million m³);
+            The "familiar yardsticks" card. Two of these build on the baseball volume above (86 billion balls ≈ 28.1 million m³);
             two build on the ~2 million km wiring total.
           </p>
           <ul className="text-white/70 text-[15px] leading-relaxed space-y-2.5 list-disc pl-5">
-            <li><span style={{ color: HUMAN }}>~14 Great Pyramids of Giza</span> — 36 million m³ ÷ 2.58 million m³ (the Great Pyramid's volume) ≈ 13.9.</li>
-            <li><span style={{ color: HUMAN }}>11 Eiffel Towers / 4.6 Burj Khalifas</span> — poured onto Fenway's field (~9,400 m²), 36 million m³ of apples stands 36M ÷ 9,400 ≈ <span style={{ color: HUMAN }}>3,810 m (~3.8 km)</span> high; ÷ 330 m (Eiffel) ≈ 11.5, ÷ 828 m (Burj Khalifa) ≈ 4.6.</li>
+            <li><span style={{ color: HUMAN }}>~11 Great Pyramids of Giza</span> — 28.1 million m³ ÷ 2.58 million m³ (the Great Pyramid's volume) ≈ 10.9.</li>
+            <li><span style={{ color: HUMAN }}>9 Eiffel Towers / 3.6 Burj Khalifas</span> — poured onto Fenway's field (~9,400 m²), 28.1 million m³ of baseballs stands 28.1M ÷ 9,400 ≈ <span style={{ color: HUMAN }}>2,970 m (~3 km)</span> high; ÷ 330 m (Eiffel) ≈ 9, ÷ 828 m (Burj Khalifa) ≈ 3.6.</li>
             <li><span style={{ color: HUMAN }}>~360× across the Atlantic</span> — 2,000,000 km of axon ÷ ~5,500 km (New York to Lisbon) ≈ 364.</li>
             <li><span style={{ color: HUMAN }}>~2,700 years to count</span> — 86 billion neurons ÷ 31.6 million seconds per year (at one per second) ≈ 2,725 years.</li>
           </ul>

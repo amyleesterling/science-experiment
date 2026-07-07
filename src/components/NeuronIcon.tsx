@@ -190,7 +190,7 @@ export default function NeuronIcon({ run }: { run: boolean }) {
         ))}
 
         <Link to="/citations" className="inline-block mt-4 text-sm text-white/45 hover:text-white/80 transition underline decoration-white/25">
-          Sources &amp; calculations →
+          Sources &amp; Calculations →
         </Link>
       </div>
     </div>

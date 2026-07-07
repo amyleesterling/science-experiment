@@ -14,9 +14,9 @@ const stroke = { fill: "none", stroke: "url(#lmStroke)", strokeWidth: 2, strokeL
 
 const METRICS: Metric[] = [
   {
-    big: "~14",
+    big: "~11",
     unit: "Great Pyramids of Giza",
-    sub: "86 billion neurons, as apples, is ~36 million m³ — enough to build fourteen Great Pyramids.",
+    sub: "86 billion neurons, as baseballs, is ~28 million m³ — enough to build eleven Great Pyramids.",
     icon: (
       <svg viewBox="0 0 40 40" width="34" height="34" aria-hidden="true">
         <path {...stroke} d="M20 7 L34 33 L6 33 Z" />
@@ -25,9 +25,9 @@ const METRICS: Metric[] = [
     ),
   },
   {
-    big: "11",
+    big: "9",
     unit: "Eiffel Towers tall",
-    sub: "Dumped on the field, that pile of apples would rise ~3.8 km — eleven Eiffel Towers, or 4.6 Burj Khalifas.",
+    sub: "Dumped on the field, that pile of baseballs would rise ~3 km — nine Eiffel Towers, or 3.6 Burj Khalifas.",
     icon: (
       <svg viewBox="0 0 40 40" width="34" height="34" aria-hidden="true">
         <path {...stroke} d="M20 5 L28 35 M20 5 L12 35" />
