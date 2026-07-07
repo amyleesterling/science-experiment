@@ -191,17 +191,21 @@ export default function Citations() {
             Landmark comparisons
           </h2>
           <p className="text-white/60 mb-5 text-[15px] leading-relaxed">
-            The "familiar yardsticks" card. Two of these build on the baseball volume above (86 billion balls ≈ 28.1 million m³);
-            two build on the ~2 million km wiring total.
+            The "ridiculous units" card. Some transform the 86-billion neuron count into everyday objects; the rest
+            are separate brain facts (synapses, wiring, power, speed, memory).
           </p>
           <ul className="text-white/70 text-[15px] leading-relaxed space-y-2.5 list-disc pl-5">
-            <li><span style={{ color: HUMAN }}>~11 Great Pyramids of Giza</span> — 28.1 million m³ ÷ 2.58 million m³ (the Great Pyramid's volume) ≈ 10.9.</li>
-            <li><span style={{ color: HUMAN }}>9 Eiffel Towers / 3.6 Burj Khalifas</span> — poured onto Fenway's field (~9,400 m²), 28.1 million m³ of baseballs stands 28.1M ÷ 9,400 ≈ <span style={{ color: HUMAN }}>2,970 m (~3 km)</span> high; ÷ 330 m (Eiffel) ≈ 9, ÷ 828 m (Burj Khalifa) ≈ 3.6.</li>
-            <li><span style={{ color: HUMAN }}>~360× across the Atlantic</span> — 2,000,000 km of axon ÷ ~5,500 km (New York to Lisbon) ≈ 364.</li>
-            <li><span style={{ color: HUMAN }}>~2,700 years to count</span> — 86 billion neurons ÷ 31.6 million seconds per year (at one per second) ≈ 2,725 years.</li>
+            <li><span style={{ color: HUMAN }}>~170 million Eiffel Towers of baguettes</span> — 86 billion baguettes × 0.65 m ≈ 56 million km end to end; ÷ 330 m (Eiffel Tower) ≈ 169 million.</li>
+            <li><span style={{ color: HUMAN }}>~37,000 Great Pyramids</span> — 86 billion ÷ 2.3 million limestone blocks per Great Pyramid ≈ 37,000.</li>
+            <li><span style={{ color: HUMAN }}>To the Moon and back ~2.6×</span> — 2,000,000 km of axon ÷ 768,800 km (a round trip; 384,400 km each way) ≈ 2.6.</li>
+            <li><span style={{ color: HUMAN }}>~2,700 years to count</span> — 86 billion neurons ÷ 31.6 million seconds per year (one per second) ≈ 2,725.</li>
+            <li><span style={{ color: HUMAN }}>~500× the Milky Way's stars</span> — 100 trillion synapses ÷ ~200 billion stars ≈ 500 (~250–1,000× across the 100–400 billion star range).</li>
+            <li><span style={{ color: HUMAN }}>~20 watts</span> — the brain's steady power draw: ~20% of the body's resting energy on ~1.3 kg of tissue.</li>
+            <li><span style={{ color: HUMAN }}>~270 mph signals</span> — the fastest (large, myelinated) axons conduct at ~120 m/s ≈ 268 mph.</li>
+            <li><span style={{ color: HUMAN }}>~2.5 petabytes</span> — one modeling estimate of the cortex's storage capacity (≈ 3 million hours of TV).</li>
           </ul>
           <p className="mt-3 text-[13px] text-white/45">
-            <span className="uppercase tracking-[0.15em] text-white/35">Source</span> · Great Pyramid volume ≈ 2.58 million m³ (base 230 m, height 146.6 m); Eiffel Tower ~330 m, Burj Khalifa ~828 m; landmark heights and the Atlantic crossing are standard figures.
+            <span className="uppercase tracking-[0.15em] text-white/35">Source</span> · Baguette ~65 cm; Great Pyramid ~2.3 million blocks; mean Earth–Moon distance 384,400 km; Milky Way ~100–400 billion stars; brain power ~20 W and peak conduction ~120 m/s are standard neuroscience; the ~2.5-petabyte figure is Reber's estimate (<em>Scientific American</em>, 2010).
           </p>
         </div>
 
