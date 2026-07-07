@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import ReferenceTable from "../components/ReferenceTable";
 import NeuronIcon from "../components/NeuronIcon";
 import LandmarkMetrics from "../components/LandmarkMetrics";
+import { getScaleTestImage, type ScaleTestImageId } from "../data/scaleTestImageQueue";
 
 // ---------------------------------------------------------------------------
 // Test page for the "brain, by the numbers" comparison viz that will become
@@ -46,6 +47,92 @@ const ROWS: Row[] = [
     ratio: "~1,000× more",
   },
 ];
+
+const STAT_IMAGE_BY_KEY: Record<string, { id: ScaleTestImageId; alt: string }> = {
+  neurons: {
+    id: "neurons-cloud-comparison",
+    alt: "Cyan and violet neuron clouds floating in darkness as a scale comparison.",
+  },
+  synapses: {
+    id: "synapse-city-lights",
+    alt: "A vast field of glowing synapse-like lights fading toward a violet horizon.",
+  },
+  wire: {
+    id: "boston-to-miami-axon",
+    alt: "A glowing cyan axon stretching across an abstract eastern coastline.",
+  },
+};
+
+const STORY_IMAGES: { id: ScaleTestImageId; alt: string }[] = [
+  {
+    id: "fenway-baseball-scale",
+    alt: "A night stadium filled with glowing baseball-like spheres as a scale metaphor.",
+  },
+  {
+    id: "single-synapse-spark",
+    alt: "A close view of two neural branches with a spark crossing a tiny synaptic gap.",
+  },
+  {
+    id: "moon-and-back-wiring",
+    alt: "Earth and Moon connected by delicate violet neural filaments.",
+  },
+  {
+    id: "volume-spheres-mouse-human",
+    alt: "A tiny cyan sphere beside a much larger violet sphere filled with neural patterns.",
+  },
+  {
+    id: "numbers-dissolve-into-nebula",
+    alt: "Light-points dissolving into a brain-shaped nebula.",
+  },
+  {
+    id: "woven-planet-brain",
+    alt: "A luminous brain shaped like a planet woven from axon fibers.",
+  },
+  {
+    id: "scale-ladder-earth-brain-neuron-synapse",
+    alt: "A vertical scale ladder from Earth to brain to neuron to synapse.",
+  },
+];
+
+function QueuedImage({
+  id,
+  alt,
+  className = "",
+}: {
+  id: ScaleTestImageId;
+  alt: string;
+  className?: string;
+}) {
+  const [failed, setFailed] = useState(false);
+  if (failed) return null;
+
+  return (
+    <img
+      src={getScaleTestImage(id)}
+      alt={alt}
+      loading="lazy"
+      decoding="async"
+      onError={() => setFailed(true)}
+      className={className}
+    />
+  );
+}
+
+function MuseumImage({
+  id,
+  alt,
+  className = "",
+}: {
+  id: ScaleTestImageId;
+  alt: string;
+  className?: string;
+}) {
+  return (
+    <div className={`overflow-hidden rounded-2xl border border-white/10 bg-white/[0.03] shadow-[0_0_60px_rgba(126,224,255,0.08)] ${className}`}>
+      <QueuedImage id={id} alt={alt} className="block aspect-video w-full object-cover" />
+    </div>
+  );
+}
 
 // Count a value up from 0 once `run` flips true.
 function useCountUp(target: number, run: boolean, ms = 1700) {
@@ -123,9 +210,12 @@ function Stat({ row, run }: { row: Row; run: boolean }) {
   const h = useCountUp(row.human.value, run);
   const ratio = row.human.value / row.mouse.value;
   const widthX = Math.round(Math.cbrt(ratio));
+  const image = STAT_IMAGE_BY_KEY[row.key];
 
   return (
     <div className="rounded-2xl glass p-7 sm:p-8">
+      {image && <MuseumImage id={image.id} alt={image.alt} className="mb-7" />}
+
       <div className="flex items-baseline justify-between gap-4 mb-6">
         <h3 className="font-display text-2xl sm:text-3xl font-light">{row.label}</h3>
         <span
@@ -168,56 +258,64 @@ function Stat({ row, run }: { row: Row; run: boolean }) {
 function EarthWrap({ run }: { run: boolean }) {
   const loops = [0, 1, 2, 3, 4, 5, 6, 7];
   return (
-    <div className="rounded-2xl glass p-7 sm:p-8 flex flex-col sm:flex-row items-center gap-8">
-      <svg viewBox="0 0 220 220" width="220" height="220" className="shrink-0">
-        <defs>
-          <radialGradient id="globe" cx="42%" cy="38%" r="72%">
-            <stop offset="0%" stopColor="#2a5e8f" />
-            <stop offset="60%" stopColor="#15304d" />
-            <stop offset="100%" stopColor="#0a1a2c" />
-          </radialGradient>
-          <linearGradient id="wire" x1="0" y1="0" x2="1" y2="1">
-            <stop offset="0%" stopColor="#b78bff" />
-            <stop offset="100%" stopColor="#7ee0ff" />
-          </linearGradient>
-        </defs>
-        <circle cx="110" cy="110" r="58" fill="url(#globe)" stroke="rgba(126,224,255,0.25)" strokeWidth="1" />
-        {/* faint latitude lines */}
-        {[-30, 0, 30].map((o) => (
-          <ellipse key={o} cx="110" cy={110 + o * 0.9} rx="58" ry={Math.max(6, 58 - Math.abs(o) * 1.4)} fill="none" stroke="rgba(126,224,255,0.12)" strokeWidth="0.6" />
-        ))}
-        {/* four wrapping orbits */}
-        {loops.map((i) => (
-          <motion.ellipse
-            key={i}
-            cx="110"
-            cy="110"
-            rx="70"
-            ry="24"
-            fill="none"
-            stroke="url(#wire)"
-            strokeWidth="1.6"
-            strokeLinecap="round"
-            transform={`rotate(${i * 45 - 68} 110 110)`}
-            style={{ filter: "drop-shadow(0 0 4px rgba(150,170,255,0.7))" }}
-            initial={{ pathLength: 0, opacity: 0 }}
-            animate={run ? { pathLength: 1, opacity: 0.75 } : {}}
-            transition={{ duration: 1.4, delay: 0.3 + i * 0.16, ease: "easeInOut" }}
-          />
-        ))}
-      </svg>
-      <div>
-        <p className="text-[11px] uppercase tracking-[0.28em] text-white/45 mb-2">Total wiring, human brain</p>
-        <p className="font-display font-light" style={{ fontSize: "clamp(1.8rem,3vw,2.6rem)" }}>
-          ~2&nbsp;million&nbsp;km of axon
-        </p>
-        <p className="mt-3 text-white/70 leading-relaxed max-w-md">
-          Laid end to end, the wiring in a single human brain would wrap around the Earth roughly{" "}
-          <span style={{ color: HUMAN }}>50 times</span> — or reach{" "}
-          <span style={{ color: HUMAN }}>the Moon and back more than twice</span> (~239,000 miles each way).
-          The famous “~100,000 miles” figure is only the ~10% that's myelinated.{" "}
-          <Link to="/citations" className="underline decoration-white/30 hover:decoration-white">How this is estimated →</Link>
-        </p>
+    <div className="rounded-2xl glass p-7 sm:p-8">
+      <MuseumImage
+        id="earth-wrapped-in-axon-wiring"
+        alt="Planet Earth wrapped by delicate cyan and violet neural axon threads."
+        className="mb-7"
+      />
+
+      <div className="flex flex-col sm:flex-row items-center gap-8">
+        <svg viewBox="0 0 220 220" width="220" height="220" className="shrink-0">
+          <defs>
+            <radialGradient id="globe" cx="42%" cy="38%" r="72%">
+              <stop offset="0%" stopColor="#2a5e8f" />
+              <stop offset="60%" stopColor="#15304d" />
+              <stop offset="100%" stopColor="#0a1a2c" />
+            </radialGradient>
+            <linearGradient id="wire" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%" stopColor="#b78bff" />
+              <stop offset="100%" stopColor="#7ee0ff" />
+            </linearGradient>
+          </defs>
+          <circle cx="110" cy="110" r="58" fill="url(#globe)" stroke="rgba(126,224,255,0.25)" strokeWidth="1" />
+          {/* faint latitude lines */}
+          {[-30, 0, 30].map((o) => (
+            <ellipse key={o} cx="110" cy={110 + o * 0.9} rx="58" ry={Math.max(6, 58 - Math.abs(o) * 1.4)} fill="none" stroke="rgba(126,224,255,0.12)" strokeWidth="0.6" />
+          ))}
+          {/* four wrapping orbits */}
+          {loops.map((i) => (
+            <motion.ellipse
+              key={i}
+              cx="110"
+              cy="110"
+              rx="70"
+              ry="24"
+              fill="none"
+              stroke="url(#wire)"
+              strokeWidth="1.6"
+              strokeLinecap="round"
+              transform={`rotate(${i * 45 - 68} 110 110)`}
+              style={{ filter: "drop-shadow(0 0 4px rgba(150,170,255,0.7))" }}
+              initial={{ pathLength: 0, opacity: 0 }}
+              animate={run ? { pathLength: 1, opacity: 0.75 } : {}}
+              transition={{ duration: 1.4, delay: 0.3 + i * 0.16, ease: "easeInOut" }}
+            />
+          ))}
+        </svg>
+        <div>
+          <p className="text-[11px] uppercase tracking-[0.28em] text-white/45 mb-2">Total wiring, human brain</p>
+          <p className="font-display font-light" style={{ fontSize: "clamp(1.8rem,3vw,2.6rem)" }}>
+            ~2&nbsp;million&nbsp;km of axon
+          </p>
+          <p className="mt-3 text-white/70 leading-relaxed max-w-md">
+            Laid end to end, the wiring in a single human brain would wrap around the Earth roughly{" "}
+            <span style={{ color: HUMAN }}>50 times</span> — or reach{" "}
+            <span style={{ color: HUMAN }}>the Moon and back more than twice</span> (~239,000 miles each way).
+            The famous “~100,000 miles” figure is only the ~10% that's myelinated.{" "}
+            <Link to="/citations" className="underline decoration-white/30 hover:decoration-white">How this is estimated →</Link>
+          </p>
+        </div>
       </div>
     </div>
   );
@@ -234,14 +332,23 @@ export default function ScaleTest() {
   return (
     <div className="min-h-screen w-full text-white" style={{ background: "radial-gradient(ellipse at 50% 0%, #101a2e 0%, #04060c 60%)" }}>
       <div className="mx-auto max-w-4xl px-6 py-16 sm:py-24">
-        <p className="text-[11px] uppercase tracking-[0.4em] text-white/45 mb-4">By the numbers</p>
-        <h1 className="font-display font-light leading-[1.05]" style={{ fontSize: "clamp(2.2rem,5vw,3.8rem)" }}>
-          Brains by the numbers
-        </h1>
-        <p className="mt-5 text-lg text-white/70 max-w-2xl leading-relaxed">
-          A single neuron makes thousands of connections. Scale that up and the numbers stop meaning anything —
-          so here they are next to things you can picture.
-        </p>
+        <div className="relative overflow-hidden rounded-[2rem] border border-white/10 bg-white/[0.03] p-6 sm:p-10 shadow-[0_0_90px_rgba(183,139,255,0.11)]">
+          <QueuedImage
+            id="hero-brains-by-the-numbers"
+            alt="A tiny cyan mouse brain and a larger violet human brain floating in a dark cosmic field."
+            className="absolute inset-0 h-full w-full object-cover opacity-55"
+          />
+          <div className="relative max-w-2xl">
+            <p className="text-[11px] uppercase tracking-[0.4em] text-white/55 mb-4">By the numbers</p>
+            <h1 className="font-display font-light leading-[1.05]" style={{ fontSize: "clamp(2.2rem,5vw,3.8rem)" }}>
+              Brains by the numbers
+            </h1>
+            <p className="mt-5 text-lg text-white/75 max-w-2xl leading-relaxed">
+              A single neuron makes thousands of connections. Scale that up and the numbers stop meaning anything —
+              so here they are next to things you can picture.
+            </p>
+          </div>
+        </div>
 
         <div className="mt-12 grid gap-5">
           <NeuronIcon run={run} />
@@ -250,6 +357,12 @@ export default function ScaleTest() {
             <Stat key={r.key} row={r} run={run} />
           ))}
           <LandmarkMetrics run={run} />
+        </div>
+
+        <div className="mt-14 grid gap-4 sm:grid-cols-2">
+          {STORY_IMAGES.map((image) => (
+            <MuseumImage key={image.id} id={image.id} alt={image.alt} />
+          ))}
         </div>
 
         {/* Reference table */}
