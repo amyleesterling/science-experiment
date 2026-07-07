@@ -98,7 +98,7 @@ const METRICS: Metric[] = [
     big: "~270",
     unit: "mph nerve signals",
     hue: HUMAN,
-    sub: "Impulses race down your nerves at up to 270 mph — fast enough to leave a Formula 1 car behind.",
+    sub: "Down your fastest myelinated axons, impulses hit up to 270 mph — enough to leave a Formula 1 car behind.",
     icon: <path {...s} d="M22 5 L10 22 L18 22 L16 35 L30 16 L21 16 Z" />,
   },
   {
